@@ -1,329 +1,222 @@
 {
   "schema_version": 1,
   "artist": "FREQEE",
-  "ui": {
-    "primary_categories": [
-      "compositions",
-      "interpretations",
-      "systems"
-    ],
-    "subcategories": {
-      "compositions": [
-        "works",
-        "sketches"
-      ],
-      "systems": [
-        "sound_design",
-        "instrument_systems"
-      ]
-    }
-  },
   "works": [
     {
-      "id": "w0001",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0001.wav",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\2023-08-12_DreamCompendium_No.2\\Mixdown\\2006_Theodoridis_DreamCompendium_No.2_24-bit_48kHz.wav",
-        "ext": "wav",
-        "size_bytes": 62589002,
-        "sha256_12": "197a5dc4ef6c"
-      }
+      "id": "w01",
+      "title": "Dream Compendium No. 2",
+      "year": 2006,
+      "category": "compositions",
+      "subcategory": "works",
+      "description": "Antiphonal counterpoint for two saxophones and two harpsichords, built from tight hocketing and stereo call-and-response.",
+      "tags": ["counterpoint", "hocket", "antiphonal", "harpsichord", "saxophones"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0002",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0002.m4a",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Logic\\18.09.02_Everlasting Three\\Bounces\\18.09.02_Everlasting Three.m4a",
-        "ext": "m4a",
-        "size_bytes": 2938382,
-        "sha256_12": "1ca03848ca56"
-      }
+      "id": "w02",
+      "title": "Heterophony with Birds",
+      "year": 2018,
+      "category": "compositions",
+      "subcategory": "works",
+      "description": "Slow canonic and heterophonic writing for plucked strings, accompanied by ambient field birds and opening late into bright high-register synth lines.",
+      "tags": ["canon", "heterophony", "plucked", "field recording", "synth"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0003",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0003.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\MusicML-Analysis\\Mixdown\\Study-in-16.mp3",
-        "ext": "mp3",
-        "size_bytes": 4065464,
-        "sha256_12": "52997a929313"
-      }
+      "id": "w03",
+      "title": "Boss Pattern (7+9)",
+      "year": 2025,
+      "category": "compositions",
+      "subcategory": "sketches",
+      "description": "High-energy synth sketch in 16/8 (7+9), driven by a continuous bass line and interlocking lead figures designed for combat pacing.",
+      "tags": ["odd metre", "16/8", "synth", "game", "rhythm"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0004",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0004.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Documents\\04_Projects\\4.113_freqee_music_portfolio\\28 Oct, 17.23_.mp3",
-        "ext": "mp3",
-        "size_bytes": 2023965,
-        "sha256_12": "b7715b103d79"
-      }
+      "id": "w04",
+      "title": "Arpeggio Scaffold",
+      "year": 2017,
+      "category": "compositions",
+      "subcategory": "sketches",
+      "description": "Voice-led theme over deliberate organ arpeggiation, outlining harmonic scaffolding intended for later orchestration and contrapuntal expansion.",
+      "tags": ["theme", "organ", "arpeggiation", "voice", "cinematic"],
+      "featured": false,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0005",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0005.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\21.09_TrioPoly(midi)\\Mixdown\\TrioImprov_Lament.mp3",
-        "ext": "mp3",
-        "size_bytes": 1691352,
-        "sha256_12": "ed8a9c882dfc"
-      }
+      "id": "w05",
+      "title": "Three-Voice Lament",
+      "year": 2021,
+      "category": "compositions",
+      "subcategory": "sketches",
+      "description": "Short three-voice plucked sketch centred on lament contour and clear contrapuntal spacing.",
+      "tags": ["trio", "plucked", "counterpoint", "lament"],
+      "featured": false,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0006",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0006.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\improvpolyphony\\Mixdown\\20210829_ImprovPoly.mp3",
-        "ext": "mp3",
-        "size_bytes": 4069086,
-        "sha256_12": "2ecd0893e3d9"
-      }
+      "id": "w06",
+      "title": "Dirge in Three",
+      "year": 2021,
+      "category": "compositions",
+      "subcategory": "sketches",
+      "description": "Slow processional polyphony with sparse drum pulse and layered voices forming the central texture.",
+      "tags": ["dirge", "vocal", "polyphony", "processional"],
+      "featured": false,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0007",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0007.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\21.11_OrthodoxChant\\Mixdown\\Orthodox Chant-like.mp3",
-        "ext": "mp3",
-        "size_bytes": 1750566,
-        "sha256_12": "98fb188094ad"
-      }
+      "id": "w07",
+      "title": "Chant with Bells",
+      "year": 2021,
+      "category": "compositions",
+      "subcategory": "sketches",
+      "description": "Chant-like vocal texture with bell tones outlining the melodic skeleton and echoing below with resonant decay.",
+      "tags": ["chant", "bells", "ritual", "vocal"],
+      "featured": false,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0008",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w08",
+      "title": "Guillaume de Machaut — Dame, ne regardes pas",
+      "year": 2022,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0008.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\22.10_Dame\\Mixdown\\22.10_Dame.mp3",
-        "ext": "mp3",
-        "size_bytes": 2742716,
-        "sha256_12": "e046db3923c2"
-      }
+      "description": "Two-voice Ars Nova excerpt performed as layered, untexted vocals in a deep register with spacious resonance.",
+      "tags": ["Ars Nova", "Machaut", "two-voice", "vocal", "medieval"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0009",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0009.wav",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\Sylith-04\\Mixdown\\PusaunImprov.wav",
-        "ext": "wav",
-        "size_bytes": 48605656,
-        "sha256_12": "8a577b7fa158"
-      }
+      "id": "w09",
+      "title": "Nocturne Reed",
+      "year": 2025,
+      "category": "systems",
+      "subcategory": "sound_design",
+      "description": "Monophonic lead timbre inspired by the colour of French Romantic reed stops, shaped as a synth voice with rapid pitch transitions and expressive articulation.",
+      "tags": ["sound design", "lead", "synth", "French Romantic", "reed", "Serum"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0010",
-      "title": "",
-      "year": null,
-      "category": "",
-      "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0010.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\Starling-04\\Mixdown\\Vedgalm.mp3",
-        "ext": "mp3",
-        "size_bytes": 703784,
-        "sha256_12": "28a773e3a3d3"
-      }
+      "id": "w10",
+      "title": "VEDGALM",
+      "year": 2025,
+      "category": "systems",
+      "subcategory": "sound_design",
+      "description": "Growling bass timbre derived from heavy-engine motion, presented as a compact sound design study.",
+      "tags": ["sound design", "bass", "engine", "growl", "Serum"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0011",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w11",
+      "title": "Adam de la Halle — Tant con je vivrai",
+      "year": 2017,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0011.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Logic\\17.05 Tant con je vivrai\\Adam de la Halle – Tant con je vivrai (Sample).mp3",
-        "ext": "mp3",
-        "size_bytes": 658202,
-        "sha256_12": "005004afa7c7"
-      }
+      "description": "Polyphonic excerpt sung in a low register with deliberate electronic processing applied as a stylistic layer.",
+      "tags": ["medieval", "polyphony", "voice", "Old French"],
+      "featured": false,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0012",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w12",
+      "title": "Morales — Pie Jesu (from Missa pro defunctis)",
+      "year": 2022,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0012.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\22.01_Morales_PieJesu\\Mixdown\\20220117_Morales_Misa-de-defuntos_Sequentia.mp3",
-        "ext": "mp3",
-        "size_bytes": 1614752,
-        "sha256_12": "e5ecca2c2300"
-      }
+      "description": "Multitracked solo voices forming a compact Renaissance choral texture centred on blend and cadential weight.",
+      "tags": ["Renaissance", "choral", "polyphony", "Morales"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0013",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w13",
+      "title": "Faenza Codex — Constantia",
+      "year": 2023,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0013.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\2023-07-01_FaenzaCodex-Constantia\\Mixdown\\FaenzaCodex-Constantia.mp3",
-        "ext": "mp3",
-        "size_bytes": 2684252,
-        "sha256_12": "b2b1303519cb"
-      }
+      "description": "Two-part instrumental piece from the Faenza Codex performed on kantele, highlighting delicate clarity and line.",
+      "tags": ["Faenza Codex", "15th century", "kantele", "early music"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0014",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w14",
+      "title": "Schein — Sonata Padouana",
+      "year": 2022,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0014.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\22.01_ScheinPadouana\\Mixdown\\ScheinPadouana(draft,1stphrase).mp3",
-        "ext": "mp3",
-        "size_bytes": 463415,
-        "sha256_12": "8b6bf224482f"
-      }
+      "description": "Excerpt from Johann Hermann Schein’s Banchetto musicale, rendered vocally with subtle pulse to outline the slow dance form.",
+      "tags": ["Schein", "Padouana", "early baroque", "consort"],
+      "featured": false,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0015",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w15",
+      "title": "Shostakovich — Symphony No. 11 (excerpt)",
+      "year": 2025,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0015.wav",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Cubase\\shos_11_II_80\\Mixdown\\shos_11_II_80.wav",
-        "ext": "wav",
-        "size_bytes": 75948784,
-        "sha256_12": "2984fedd1639"
-      }
+      "description": "Orchestral reconstruction of a climactic passage from Symphony No. 11 using modern sample libraries.",
+      "tags": ["Shostakovich", "orchestral", "sample libraries"],
+      "featured": false,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0016",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w16",
+      "title": "Philippus de Caserta — De ma dolour",
+      "year": 2018,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0016.m4a",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Logic\\18.08_Caserta_Demadolour\\Bounces\\18.08_Caserta_Demadolour.m4a",
-        "ext": "m4a",
-        "size_bytes": 2671608,
-        "sha256_12": "7f8392d1243a"
-      }
+      "description": "Soft multitracked vocal rendering of an Ars Subtilior chanson, focused on blend and fragile contour.",
+      "tags": ["Ars Subtilior", "Caserta", "vocal", "medieval"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0017",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w17",
+      "title": "Hasapiko — Polyphonic Harmonisation",
+      "year": 2019,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0017.mp3",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Logic\\Hasapiko Arrangement\\Bounces\\Hasapiko Arrangement.mp3",
-        "ext": "mp3",
-        "size_bytes": 4106157,
-        "sha256_12": "80710ed79b1e"
-      }
+      "description": "Traditional Greek melody reharmonised in contrapuntal style, moving from source to extracted tune to a complete polyphonic realisation.",
+      "tags": ["Greek", "harmonisation", "counterpoint", "arrangement"],
+      "featured": true,
+      "duration": null,
+      "image": null
     },
     {
-      "id": "w0018",
-      "title": "",
-      "year": null,
-      "category": "",
+      "id": "w18",
+      "title": "Preston — Uppon La Mi Re",
+      "year": 2020,
+      "category": "interpretations",
       "subcategory": null,
-      "description": "",
-      "tags": [],
-      "published_audio": "assets/audio/w0018.wav",
-      "image": null,
-      "source": {
-        "path": "E:\\Music Projects\\Logic\\20.10 Uppon la la laaa [THIS ONE!]\\Bounces\\20.10 Uppon la la laaa [THIS ONE!].wav",
-        "ext": "wav",
-        "size_bytes": 48033184,
-        "sha256_12": "97fcf7bf74fb"
-      }
+      "description": "Keyboard performance built on a repeating hexachord ground, with contrapuntal elaboration over a steady bass pattern.",
+      "tags": ["virginalist", "organ", "Preston", "renaissance", "ground"],
+      "featured": true,
+      "duration": null,
+      "image": null
     }
   ]
 }

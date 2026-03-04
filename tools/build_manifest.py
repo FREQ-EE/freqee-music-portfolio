@@ -37,7 +37,7 @@ SOURCE_FILES: List[str] = [
     r"E:\Music Projects\Cubase\2023-08-12_DreamCompendium_No.2\Mixdown\2006_Theodoridis_DreamCompendium_No.2_24-bit_48kHz.wav",
     r"E:\Music Projects\Logic\18.09.02_Everlasting Three\Bounces\18.09.02_Everlasting Three.m4a",
     r"E:\Music Projects\Cubase\MusicML-Analysis\Mixdown\Study-in-16.mp3",
-    r"E:\Documents\04_Projects\4.113_freqee_music_portfolio\28 Oct, 17.23_.mp3",
+    r"E:\\Music Projects\\Cubase\\28 Oct, 17.23_.mp3",
     r"E:\Music Projects\Cubase\21.09_TrioPoly(midi)\Mixdown\TrioImprov_Lament.mp3",
     r"E:\Music Projects\Cubase\improvpolyphony\Mixdown\20210829_ImprovPoly.mp3",
     r"E:\Music Projects\Cubase\21.11_OrthodoxChant\Mixdown\Orthodox Chant-like.mp3",
