@@ -1,0 +1,329 @@
+{
+  "schema_version": 1,
+  "artist": "FREQEE",
+  "ui": {
+    "primary_categories": [
+      "compositions",
+      "interpretations",
+      "systems"
+    ],
+    "subcategories": {
+      "compositions": [
+        "works",
+        "sketches"
+      ],
+      "systems": [
+        "sound_design",
+        "instrument_systems"
+      ]
+    }
+  },
+  "works": [
+    {
+      "id": "w0001",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0001.wav",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\2023-08-12_DreamCompendium_No.2\\Mixdown\\2006_Theodoridis_DreamCompendium_No.2_24-bit_48kHz.wav",
+        "ext": "wav",
+        "size_bytes": 62589002,
+        "sha256_12": "197a5dc4ef6c"
+      }
+    },
+    {
+      "id": "w0002",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0002.m4a",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Logic\\18.09.02_Everlasting Three\\Bounces\\18.09.02_Everlasting Three.m4a",
+        "ext": "m4a",
+        "size_bytes": 2938382,
+        "sha256_12": "1ca03848ca56"
+      }
+    },
+    {
+      "id": "w0003",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0003.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\MusicML-Analysis\\Mixdown\\Study-in-16.mp3",
+        "ext": "mp3",
+        "size_bytes": 4065464,
+        "sha256_12": "52997a929313"
+      }
+    },
+    {
+      "id": "w0004",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0004.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Documents\\04_Projects\\4.113_freqee_music_portfolio\\28 Oct, 17.23_.mp3",
+        "ext": "mp3",
+        "size_bytes": 2023965,
+        "sha256_12": "b7715b103d79"
+      }
+    },
+    {
+      "id": "w0005",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0005.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\21.09_TrioPoly(midi)\\Mixdown\\TrioImprov_Lament.mp3",
+        "ext": "mp3",
+        "size_bytes": 1691352,
+        "sha256_12": "ed8a9c882dfc"
+      }
+    },
+    {
+      "id": "w0006",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0006.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\improvpolyphony\\Mixdown\\20210829_ImprovPoly.mp3",
+        "ext": "mp3",
+        "size_bytes": 4069086,
+        "sha256_12": "2ecd0893e3d9"
+      }
+    },
+    {
+      "id": "w0007",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0007.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\21.11_OrthodoxChant\\Mixdown\\Orthodox Chant-like.mp3",
+        "ext": "mp3",
+        "size_bytes": 1750566,
+        "sha256_12": "98fb188094ad"
+      }
+    },
+    {
+      "id": "w0008",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0008.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\22.10_Dame\\Mixdown\\22.10_Dame.mp3",
+        "ext": "mp3",
+        "size_bytes": 2742716,
+        "sha256_12": "e046db3923c2"
+      }
+    },
+    {
+      "id": "w0009",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0009.wav",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\Sylith-04\\Mixdown\\PusaunImprov.wav",
+        "ext": "wav",
+        "size_bytes": 48605656,
+        "sha256_12": "8a577b7fa158"
+      }
+    },
+    {
+      "id": "w0010",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0010.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\Starling-04\\Mixdown\\Vedgalm.mp3",
+        "ext": "mp3",
+        "size_bytes": 703784,
+        "sha256_12": "28a773e3a3d3"
+      }
+    },
+    {
+      "id": "w0011",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0011.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Logic\\17.05 Tant con je vivrai\\Adam de la Halle – Tant con je vivrai (Sample).mp3",
+        "ext": "mp3",
+        "size_bytes": 658202,
+        "sha256_12": "005004afa7c7"
+      }
+    },
+    {
+      "id": "w0012",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0012.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\22.01_Morales_PieJesu\\Mixdown\\20220117_Morales_Misa-de-defuntos_Sequentia.mp3",
+        "ext": "mp3",
+        "size_bytes": 1614752,
+        "sha256_12": "e5ecca2c2300"
+      }
+    },
+    {
+      "id": "w0013",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0013.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\2023-07-01_FaenzaCodex-Constantia\\Mixdown\\FaenzaCodex-Constantia.mp3",
+        "ext": "mp3",
+        "size_bytes": 2684252,
+        "sha256_12": "b2b1303519cb"
+      }
+    },
+    {
+      "id": "w0014",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0014.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\22.01_ScheinPadouana\\Mixdown\\ScheinPadouana(draft,1stphrase).mp3",
+        "ext": "mp3",
+        "size_bytes": 463415,
+        "sha256_12": "8b6bf224482f"
+      }
+    },
+    {
+      "id": "w0015",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0015.wav",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Cubase\\shos_11_II_80\\Mixdown\\shos_11_II_80.wav",
+        "ext": "wav",
+        "size_bytes": 75948784,
+        "sha256_12": "2984fedd1639"
+      }
+    },
+    {
+      "id": "w0016",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0016.m4a",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Logic\\18.08_Caserta_Demadolour\\Bounces\\18.08_Caserta_Demadolour.m4a",
+        "ext": "m4a",
+        "size_bytes": 2671608,
+        "sha256_12": "7f8392d1243a"
+      }
+    },
+    {
+      "id": "w0017",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0017.mp3",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Logic\\Hasapiko Arrangement\\Bounces\\Hasapiko Arrangement.mp3",
+        "ext": "mp3",
+        "size_bytes": 4106157,
+        "sha256_12": "80710ed79b1e"
+      }
+    },
+    {
+      "id": "w0018",
+      "title": "",
+      "year": null,
+      "category": "",
+      "subcategory": null,
+      "description": "",
+      "tags": [],
+      "published_audio": "assets/audio/w0018.wav",
+      "image": null,
+      "source": {
+        "path": "E:\\Music Projects\\Logic\\20.10 Uppon la la laaa [THIS ONE!]\\Bounces\\20.10 Uppon la la laaa [THIS ONE!].wav",
+        "ext": "wav",
+        "size_bytes": 48033184,
+        "sha256_12": "97fcf7bf74fb"
+      }
+    }
+  ]
+}
