@@ -1,0 +1,1207 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex,nofollow" />
+  <title>FREQEE — Music for Worlds</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;600&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      color-scheme: dark;
+
+      --bg0:#05090b;
+      --bg1:#071014;
+
+      --text:rgba(255,255,255,.92);
+      --muted:rgba(255,255,255,.62);
+      --faint:rgba(255,255,255,.42);
+
+      --cyan:#14C5D9;
+      --magenta:#910a67;
+
+      /* Use palette tokens directly where possible.
+         Accent is still useful when we want a “text-ready” variant (alpha/contrast tuned). */
+      --accentA: rgba(20,197,217,.92);   /* cyan */
+      --accentB: rgba(145,10,103,.92);   /* magenta */
+
+      --line:rgba(255,255,255,.10);
+      --line2:rgba(255,255,255,.14);
+
+      --h:"Orbitron", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      --b:"JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+      --wrap: 980px;
+      --catalog: 760px;
+
+      --grad: linear-gradient(90deg, rgba(20,197,217,.70), rgba(145,10,103,.70));
+
+      /* Player spacing knobs */
+      --player-gap: 8px;         /* symmetric spacing away from centred controls */
+      --seek-gap: 6px;            /* time ↔ seek line spacing */
+      --seek-left-min: 40px;      /* timeL min width */
+      --seek-right-min: 20px;     /* timeR min width */
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--b);
+      color: var(--text);
+      overflow-x:hidden;
+      background: var(--bg0);
+    }
+
+    /* Fixed background field (never “runs out”, never seams) */
+    body::before{
+      content:"";
+      position: fixed;
+      inset: 0;
+      z-index: -1;
+      background:
+        radial-gradient(1100px 820px at 50% -10%, rgba(20,197,217,0.10), transparent 60%),
+        radial-gradient(900px 700px at 80% 0%, rgba(145,10,103,0.12), transparent 55%),
+        linear-gradient(180deg, var(--bg0), var(--bg1) 45%, var(--bg0));
+      transform: translateZ(0);
+    }
+
+    .wrap{
+      max-width: var(--wrap);
+      margin: 0 auto;
+      padding: 44px 18px 124px;
+    }
+
+    /* Hero */
+    .hero{
+      text-align:center;
+      padding: 6px 0 18px;
+    }
+    .sig{
+      font-family: var(--h);
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      margin: 0 0 16px 0;
+    }
+    .title{
+      font-family: var(--h);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-weight: 600;
+      font-size: 24px;
+      margin: 0 0 10px 0;
+    }
+    .subtitle{
+      font-family: var(--h);
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-size: 12px;
+      color: rgba(255,255,255,.70);
+      margin: 0 0 18px 0;
+    }
+    .subcopy{
+      margin: 0 auto;
+      max-width: 760px;
+      font-size: 13px;
+      line-height: 1.7;
+      color: var(--muted);
+    }
+
+    /* Contact: button, but restrained */
+    .contactline{
+      margin-top: 18px;
+      display:flex;
+      justify-content:center;
+    }
+    .contactbtn{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.02);
+      color: var(--accentA);
+      cursor:pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-family: var(--h);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 650; /* slightly stronger */
+      transition: border-color .12s ease, background .12s ease, transform .12s ease, color .12s ease;
+    }
+    .contactbtn:hover{
+      border-color: rgba(20,197,217,.38);
+      background: rgba(20,197,217,.06);
+      color: rgba(20,197,217,1);
+      transform: translateY(-1px);
+    }
+    .contactbtn:active{ transform: translateY(0); }
+
+    /* Filters */
+    .filters{
+      display:flex;
+      justify-content:center;
+      gap: 18px;
+      margin: 30px 0 18px;
+      flex-wrap:wrap;
+    }
+    .filter{
+      appearance:none;
+      background: transparent;
+      border: none;
+      padding: 8px 2px;
+      cursor:pointer;
+      font-family: var(--h);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: rgba(255,255,255,.62);
+      position:relative;
+      transition: color .12s ease;
+    }
+    .filter:hover{ color: rgba(255,255,255,.90); }
+    .filter.active{ color: rgba(255,255,255,.92); }
+    .filter.active::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:2px;
+      background: var(--grad);
+      border-radius: 2px;
+    }
+
+    .catalog{
+      max-width: var(--catalog);
+      margin: 0 auto;
+    }
+
+    .list{
+      margin-top: 14px;
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .row{
+      position:relative;
+      padding: 26px 0;
+      border-bottom: 1px solid rgba(255,255,255,.08);
+      display:grid;
+      grid-template-columns: 1fr auto;
+      gap: 16px;
+      align-items:start;
+    }
+    .row:hover{ border-bottom-color: rgba(255,255,255,.14); }
+
+    .main{ min-width:0; }
+    .rowhead{
+      display:flex;
+      gap: 12px;
+      align-items:baseline;
+      flex-wrap:wrap;
+    }
+    .wtitle{
+      font-size: 14px;
+      color: rgba(255,255,255,.92);
+      line-height: 1.35;
+      margin: 0;
+    }
+    .wcat{
+      font-family: var(--h);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: rgba(255,255,255,.48);
+    }
+    .wdesc{
+      margin-top: 10px;
+      font-size: 12px;
+      line-height: 1.7;
+      color: rgba(255,255,255,.62);
+      max-width: 740px;
+    }
+
+    .more{
+      margin-top: 12px;
+      display:none;
+      gap: 10px;
+      flex-wrap:wrap;
+    }
+    .row.open .more{ display:flex; }
+    .tag{
+      font-size: 11px;
+      color: rgba(255,255,255,.62);
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.02);
+      padding: 6px 9px;
+      border-radius: 999px;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      align-items:center;
+      opacity: 0;
+      transform: translateY(1px);
+      transition: opacity .12s ease, transform .12s ease;
+      pointer-events:none;
+      user-select:none;
+    }
+    .row:hover .actions,
+    .row:focus-within .actions,
+    .row.playing .actions,
+    .row.queued .actions{
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events:auto;
+    }
+
+    .iconbtn{
+      appearance:none;
+      border:none;
+      background: transparent;
+      color: rgba(255,255,255,.78);
+      cursor:pointer;
+      padding: 6px 8px;
+      border-radius: 10px;
+      font-family: var(--b);
+      font-size: 12px;
+      transition: color .12s ease, background .12s ease, opacity .12s ease;
+      display:flex;
+      align-items:center;
+      gap: 8px;
+    }
+    .iconbtn:hover{
+      color: rgba(255,255,255,.96);
+      background: rgba(255,255,255,.05);
+    }
+
+    .stateDot{
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.22);
+      flex: 0 0 auto;
+    }
+    .row.playing .stateDot{
+      background: rgba(20,197,217,.70);
+      box-shadow: 0 0 0 4px rgba(20,197,217,.10);
+    }
+    .row.queued:not(.playing) .stateDot{
+      background: rgba(145,10,103,.70);
+      box-shadow: 0 0 0 4px rgba(145,10,103,.10);
+    }
+
+    /* Player */
+    .player{
+      position:fixed;
+      left:0; right:0; bottom:0;
+      padding: 10px 14px;
+      background: rgba(5,9,11,.72);
+      border-top: 1px solid rgba(255,255,255,.10);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+    }
+
+    .player-inner{
+      max-width: var(--catalog);   /* aligns with catalogue divider end */
+      margin: 0 auto;
+      height: 44px;
+
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      column-gap: 14px;
+    }
+
+    .pLeft{
+      grid-column: 1;
+      justify-self: end;
+      text-align: right;
+      min-width: 0;
+      padding-right: var(--player-gap);
+      opacity: 1;
+      transition: opacity .12s ease;
+    }
+    .pLeft.empty{
+      opacity: 0;
+      pointer-events: none;
+    }
+    .nowtitle{
+      font-size: 12px;
+      color: rgba(255,255,255,.92);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+    .nowsub{
+      margin-top: 3px;
+      font-family: var(--h);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 10px;
+      color: rgba(255,255,255,.55);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .pCentre{
+      grid-column: 2;
+      justify-self: center;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+    }
+
+    .pRight{
+      grid-column: 3;
+      justify-self: start;
+      display:flex;
+      align-items:center;
+      gap: 10px;
+      min-width: 0;
+      padding-left: var(--player-gap);
+    }
+
+    .tbtn{
+      appearance:none;
+      border:none;
+      background: transparent;
+      color: rgba(255,255,255,.82);
+      cursor:pointer;
+      padding: 6px 8px;
+      border-radius: 10px;
+      transition: color .12s ease, background .12s ease, opacity .12s ease;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .tbtn:hover{
+      color: rgba(255,255,255,.96);
+      background: rgba(255,255,255,.05);
+    }
+    .tbtn[disabled]{ opacity:.35; cursor:default; }
+
+    .iconSvg{
+      width: 18px;
+      height: 18px;
+      display:block;
+    }
+    .playIcon{
+      width: 18px;
+      height: 18px;
+      display:block;
+    }
+
+    .seek{
+      width: 100%;
+      display:flex;
+      align-items:center;
+      gap: var(--seek-gap);
+      min-width: 0;
+    }
+
+    .time{
+      font-size: 10px;
+      color: rgba(255,255,255,.50);
+      text-align: right;
+      white-space: nowrap;
+      font-variant-numeric: tabular-nums;
+      -webkit-font-smoothing: antialiased;
+    }
+    .timeL{ min-width: var(--seek-left-min); }
+    .timeR{ min-width: var(--seek-right-min); }
+
+    input[type="range"]{
+      width: 100%;
+      height: 18px;
+      background: transparent;
+      -webkit-appearance: none;
+      appearance: none;
+      min-width: 0;
+    }
+    input[type="range"]::-webkit-slider-runnable-track{
+      height: 2px;
+      background: rgba(255,255,255,.18);
+      border-radius: 2px;
+    }
+    input[type="range"]::-webkit-slider-thumb{
+      -webkit-appearance: none;
+      appearance: none;
+      width: 2px;
+      height: 14px;
+      margin-top: -6px;
+      background: rgba(255,255,255,.86);
+      border-radius: 2px;
+    }
+    input[type="range"]::-moz-range-track{
+      height: 2px;
+      background: rgba(255,255,255,.18);
+      border-radius: 2px;
+    }
+    input[type="range"]::-moz-range-thumb{
+      width: 2px;
+      height: 14px;
+      background: rgba(255,255,255,.86);
+      border: none;
+      border-radius: 2px;
+    }
+
+    /* Contact modal (dechromed + simplified) */
+    .overlay{
+      position:fixed;
+      inset:0;
+      background: rgba(0,0,0,.62);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      display:none;
+      align-items:center;
+      justify-content:center;
+      padding: 18px;
+      z-index: 50;
+    }
+    .overlay.open{ display:flex; }
+
+    .modal{
+      width: min(720px, 100%);
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.10);
+      background: rgba(8,12,14,.86);
+      padding: 18px;
+      box-shadow: 0 20px 80px rgba(0,0,0,.45);
+    }
+
+    .mhead{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .mtitle{
+      margin:0;
+      font-family: var(--h);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 11px;
+      color: rgba(255,255,255,.82);
+    }
+    .mclose{
+      appearance:none;
+      border:none;
+      background: transparent;
+      color: rgba(255,255,255,.70);
+      cursor:pointer;
+      padding: 6px 8px;
+      border-radius: 10px;
+    }
+    .mclose:hover{ background: rgba(255,255,255,.05); color: rgba(255,255,255,.92); }
+
+    .status{
+      font-size: 11px;
+      color: rgba(255,255,255,.50);
+      line-height: 1.5;
+      margin: 0 0 14px 0;
+    }
+
+    .form{
+      display:flex;
+      flex-direction:column;
+      gap: 14px;
+    }
+
+    .field{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+
+    /* Underlined fields, minimal chrome */
+    .input,.textarea{
+      width:100%;
+      border: none;
+      border-bottom: 1px solid rgba(255,255,255,.16);
+      background: transparent;
+      color: rgba(255,255,255,.92);
+      padding: 10px 2px;
+      border-radius: 0;
+      font-family: var(--b);
+      font-size: 12px;
+      outline:none;
+      transition: border-color .12s ease;
+    }
+    .textarea{
+      min-height: 120px;
+      resize: vertical;
+    }
+    .input::placeholder,.textarea::placeholder{
+      color: rgba(255,255,255,.40);
+    }
+    .input:focus,.textarea:focus{
+      border-bottom-color: rgba(20,197,217,.45);
+    }
+
+    .honeypot{ display:none; }
+
+    .actionsRow{
+      display:flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 6px;
+    }
+
+    /* Send uses same philosophy as contact button */
+    .primary{
+      appearance:none;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.02);
+      color: rgba(255,255,255,.88);
+      cursor:pointer;
+      padding: 10px 14px;
+      border-radius: 999px;
+      font-family: var(--h);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 600;
+      transition: border-color .12s ease, background .12s ease, transform .12s ease;
+    }
+    .primary:hover{
+      border-color: rgba(255,255,255,.22);
+      background: rgba(255,255,255,.05);
+      transform: translateY(-1px);
+    }
+    .primary:active{ transform: translateY(0); }
+
+    .statusInline{
+      font-size: 11px;
+      color: rgba(255,255,255,.55);
+      min-height: 16px;
+    }
+
+    @media (max-width: 860px){
+      .player-inner{
+        height: 74px;
+        grid-template-columns: 1fr;
+        grid-template-rows: auto auto;
+        row-gap: 10px;
+        justify-items: center;
+      }
+      .pLeft{
+        grid-column: 1;
+        justify-self: center;
+        text-align: center;
+        padding: 0;
+      }
+      .pCentre{ grid-column: 1; }
+      .pRight{
+        grid-column: 1;
+        justify-self: center;
+        width: 100%;
+        padding: 0;
+      }
+      .seek{ width: 100%; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <header class="hero">
+      <div class="sig">FREQEE</div>
+      <h1 class="title">Music for Worlds</h1>
+      <div class="subtitle">Composition, Interpretation, Systems.</div>
+      <p class="subcopy">
+        I compose and design music grounded in polyphony, historical tuning practice, and carefully shaped timbre.
+        My work combines historically informed craft with systems thinking, developed through research and practical experimentation.
+        Available for collaboration on games and interactive projects.
+      </p>
+
+      <div class="contactline">
+        <button class="contactbtn" id="btnContact" type="button">Contact</button>
+      </div>
+    </header>
+
+    <nav class="filters" aria-label="Category filter">
+      <button class="filter active" data-cat="all">All</button>
+      <button class="filter" data-cat="compositions">Compositions</button>
+      <button class="filter" data-cat="interpretations">Interpretations</button>
+      <button class="filter" data-cat="systems">Systems</button>
+    </nav>
+
+    <div class="catalog">
+      <main class="list" id="list" aria-label="Works list"></main>
+    </div>
+  </div>
+
+  <!-- Contact modal -->
+  <div class="overlay" id="contactOverlay" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+      <div class="mhead">
+        <h2 class="mtitle" id="contactTitle">Contact</h2>
+        <button class="mclose" id="contactClose" aria-label="Close">Esc</button>
+      </div>
+
+      <p class="status">
+        Messages are sent via a form endpoint; no email address is exposed on this page.
+      </p>
+
+      <form class="form" id="contactForm">
+        <div class="field">
+          <input class="input" name="name" autocomplete="name" placeholder="Name" required />
+        </div>
+
+        <div class="field">
+          <input class="input" name="email" type="email" autocomplete="email" placeholder="Email" required />
+        </div>
+
+        <div class="field">
+          <textarea class="textarea" name="message" placeholder="Message" required></textarea>
+        </div>
+
+        <div class="honeypot">
+          <label>Do not fill this field</label>
+          <input name="company" />
+        </div>
+
+        <div class="actionsRow">
+          <button class="primary" type="submit">Send</button>
+          <button class="mclose" type="button" id="contactCancel">Cancel</button>
+          <div class="statusInline" id="contactStatus"></div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Player -->
+  <div class="player" aria-label="Global audio player">
+    <div class="player-inner">
+      <div class="pLeft empty" id="pLeft">
+        <div class="nowtitle" id="pTitle"></div>
+        <div class="nowsub" id="pSub"></div>
+      </div>
+
+      <div class="pCentre">
+        <button class="tbtn" id="pBack" title="Back" aria-label="Back">
+          <svg class="iconSvg" viewBox="0 0 100 100" role="img" aria-label="Back">
+            <path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="6"
+                  d="M 60 25 L 35 50 L 60 75" />
+          </svg>
+        </button>
+
+        <button class="tbtn" id="pPlay" title="Play/Pause" aria-label="Play/Pause">
+          <svg class="playIcon" viewBox="0 0 100 100" role="img" aria-label="Play/Pause">
+            <path id="playShape" fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="6"
+              d="M 30 25 L 30 75 Q 30 75 72 50 L 72 50 Q 51 37 30 25 Z">
+              <animate id="toSquare" attributeName="d" dur="140ms" fill="freeze"
+                values="M 30 25 L 30 75 Q 30 75 72 50 L 72 50 Q 51 37 30 25 Z;
+                        M 30 30 L 30 70 Q 30 70 70 70 L 70 30 Q 50 30 30 30 Z"/>
+              <animate id="toPlay" attributeName="d" dur="140ms" fill="freeze"
+                values="M 30 30 L 30 70 Q 30 70 70 70 L 70 30 Q 50 30 30 30 Z;
+                        M 30 25 L 30 75 Q 30 75 72 50 L 72 50 Q 51 37 30 25 Z"/>
+            </path>
+          </svg>
+        </button>
+
+        <button class="tbtn" id="pNext" title="Play queued next" aria-label="Forward">
+          <svg class="iconSvg" viewBox="0 0 100 100" role="img" aria-label="Forward">
+            <path fill="none" stroke="currentColor" stroke-width="8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="6"
+                  d="M 40 25 L 65 50 L 40 75" />
+          </svg>
+        </button>
+      </div>
+
+      <div class="pRight">
+        <div class="seek" aria-label="Seek">
+          <span class="time timeL" id="pTime">0:00</span>
+          <input id="pSeek" type="range" min="0" max="1000" value="0" />
+          <span class="time timeR" id="pDur">0:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <audio id="audio"></audio>
+
+  <script>
+    // ---------------------------
+    // CONFIG
+    // ---------------------------
+    const WORKS_URL = "./works.json";
+    const AUDIO_BASE = "./assets/audio";
+    const AUDIO_EXT_ORDER = ["mp3", "m4a", "wav"];
+
+    const CONTACT_ENDPOINT = "https://formspree.io/f/mpqyaaar";
+
+    const BACK_RESTART_SECONDS = 3.0;
+
+    // ---------------------------
+    // State
+    // ---------------------------
+    const state = {
+      cat: "all",
+      works: [],
+      filtered: [],
+      currentId: null,
+      queue: [],     // ordered list of queued work ids
+      history: []
+    };
+
+    // ---------------------------
+    // DOM
+    // ---------------------------
+    const el = {
+      list: document.getElementById("list"),
+      filters: Array.from(document.querySelectorAll(".filter")),
+
+      btnContact: document.getElementById("btnContact"),
+      contactOverlay: document.getElementById("contactOverlay"),
+      contactClose: document.getElementById("contactClose"),
+      contactCancel: document.getElementById("contactCancel"),
+      contactForm: document.getElementById("contactForm"),
+      contactStatus: document.getElementById("contactStatus"),
+
+      audio: document.getElementById("audio"),
+
+      pLeft: document.getElementById("pLeft"),
+      pTitle: document.getElementById("pTitle"),
+      pSub: document.getElementById("pSub"),
+
+      pBack: document.getElementById("pBack"),
+      pPlay: document.getElementById("pPlay"),
+      pNext: document.getElementById("pNext"),
+      pSeek: document.getElementById("pSeek"),
+      pTime: document.getElementById("pTime"),
+      pDur: document.getElementById("pDur"),
+
+      toSquare: document.getElementById("toSquare"),
+      toPlay: document.getElementById("toPlay")
+    };
+
+    // ---------------------------
+    // Helpers
+    // ---------------------------
+    function safeText(s){ return String(s ?? "").replace(/\s+/g," ").trim(); }
+
+    function catLabel(cat){
+      if (cat === "compositions") return "COMPOSITION";
+      if (cat === "interpretations") return "INTERPRETATION";
+      if (cat === "systems") return "SYSTEM";
+      return "";
+    }
+
+    function fmtTime(sec){
+      if (!isFinite(sec) || sec < 0) return "0:00";
+      const m = Math.floor(sec / 60);
+      const s = Math.floor(sec % 60);
+      return `${m}:${String(s).padStart(2,"0")}`;
+    }
+
+    function padAudioId(workId){
+      const n = parseInt(String(workId).replace(/^w/i,""), 10);
+      if (!Number.isFinite(n)) return null;
+      return "w" + String(n).padStart(4,"0");
+    }
+
+    async function urlExists(url){
+      try{
+        const r = await fetch(url, { method:"HEAD", cache:"no-cache" });
+        return r.ok;
+      }catch{ return false; }
+    }
+
+    async function resolveAudioUrl(work){
+      if (work.published_audio){
+        return work.published_audio.startsWith("assets/") ? "./" + work.published_audio : work.published_audio;
+      }
+      const baseId = padAudioId(work.id);
+      if (!baseId) return null;
+
+      for (const ext of AUDIO_EXT_ORDER){
+        const url = `${AUDIO_BASE}/${baseId}.${ext}`;
+        if (await urlExists(url)) return url;
+      }
+      return null;
+    }
+
+    function applyFilter(){
+      const xs = [...state.works].filter(w => {
+        if (state.cat === "all") return true;
+        return w.category === state.cat;
+      });
+
+      xs.sort((a,b) => {
+        const fa = !!a.featured, fb = !!b.featured;
+        if (fa !== fb) return fa ? -1 : 1;
+        return safeText(a.title).localeCompare(safeText(b.title));
+      });
+
+      state.filtered = xs;
+    }
+
+    function isQueued(id){ return state.queue.includes(id); }
+    function isPlaying(id){ return state.currentId === id && !el.audio.paused && !!el.audio.src; }
+
+    function dequeue(id){
+      state.queue = state.queue.filter(x => x !== id);
+    }
+
+    function markRows(){
+      const rows = Array.from(document.querySelectorAll(".row"));
+      for (const r of rows){
+        const id = r.dataset.id;
+        r.classList.toggle("queued", isQueued(id));
+        r.classList.toggle("playing", isPlaying(id));
+
+        const qb = r.querySelector('[data-action="queue"]');
+        if (qb){
+          const queued = isQueued(id);
+          qb.querySelector('[data-label]').textContent = queued ? "Queued" : "Queue";
+        }
+        const pb = r.querySelector('[data-action="play"]');
+        if (pb){
+          pb.querySelector('[data-label]').textContent = (state.currentId === id && !el.audio.paused) ? "Playing" : "Play";
+        }
+      }
+    }
+
+    function render(){
+      applyFilter();
+      el.list.innerHTML = "";
+
+      for (const w of state.filtered){
+        const row = document.createElement("section");
+        row.className = "row";
+        row.dataset.id = w.id;
+
+        const main = document.createElement("div");
+        main.className = "main";
+
+        const head = document.createElement("div");
+        head.className = "rowhead";
+
+        const title = document.createElement("h3");
+        title.className = "wtitle";
+        title.textContent = safeText(w.title);
+
+        const cat = document.createElement("div");
+        cat.className = "wcat";
+        cat.textContent = catLabel(w.category);
+
+        head.appendChild(title);
+        head.appendChild(cat);
+
+        const desc = document.createElement("div");
+        desc.className = "wdesc";
+        desc.textContent = safeText(w.description);
+
+        const more = document.createElement("div");
+        more.className = "more";
+        for (const t of (w.tags || [])){
+          const tag = document.createElement("div");
+          tag.className = "tag";
+          tag.textContent = String(t);
+          more.appendChild(tag);
+        }
+
+        main.appendChild(head);
+        main.appendChild(desc);
+        main.appendChild(more);
+
+        const actions = document.createElement("div");
+        actions.className = "actions";
+
+        const dot = document.createElement("div");
+        dot.className = "stateDot";
+        dot.title = "State";
+
+        const play = document.createElement("button");
+        play.className = "iconbtn";
+        play.dataset.action = "play";
+        play.innerHTML = `<span data-label>Play</span>`;
+        play.addEventListener("click", (e) => { e.stopPropagation(); playWork(w.id); });
+
+        const queue = document.createElement("button");
+        queue.className = "iconbtn";
+        queue.dataset.action = "queue";
+        queue.innerHTML = `<span data-label>Queue</span>`;
+        queue.addEventListener("click", (e) => { e.stopPropagation(); queueWork(w.id); });
+
+        actions.appendChild(dot);
+        actions.appendChild(play);
+        actions.appendChild(queue);
+
+        row.addEventListener("click", () => { row.classList.toggle("open"); });
+
+        row.appendChild(main);
+        row.appendChild(actions);
+        el.list.appendChild(row);
+      }
+
+      updateTransport();
+      markRows();
+    }
+
+    function openOverlay(overlayEl){
+      overlayEl.classList.add("open");
+      overlayEl.setAttribute("aria-hidden","false");
+    }
+    function closeOverlay(overlayEl){
+      overlayEl.classList.remove("open");
+      overlayEl.setAttribute("aria-hidden","true");
+    }
+
+    function queueWork(id){
+      // Toggle queue state; do not auto-consume on navigation.
+      if (state.queue.includes(id)) dequeue(id);
+      else state.queue.push(id);
+
+      updateTransport();
+      markRows();
+    }
+
+    function pushHistory(id){
+      if (!id) return;
+      const last = state.history[state.history.length - 1];
+      if (last !== id) state.history.push(id);
+      if (state.history.length > 200) state.history.splice(0, state.history.length - 200);
+    }
+
+    function morphToSquare(){ try{ el.toSquare.beginElement(); }catch{} }
+    function morphToPlay(){ try{ el.toPlay.beginElement(); }catch{} }
+
+    function setNowPlaying(work){
+      if (!work){
+        el.pLeft.classList.add("empty");
+        el.pTitle.textContent = "";
+        el.pSub.textContent = "";
+        return;
+      }
+      el.pLeft.classList.remove("empty");
+      el.pTitle.textContent = safeText(work.title);
+      el.pSub.textContent = catLabel(work.category);
+    }
+
+    async function playWork(id){
+      const w = state.works.find(x => x.id === id);
+      if (!w) return;
+
+      const url = await resolveAudioUrl(w);
+      state.currentId = id;
+
+      setNowPlaying(w);
+
+      if (!url){
+        el.pSub.textContent = "AUDIO NOT FOUND";
+        updateTransport();
+        markRows();
+        return;
+      }
+
+      const abs = new URL(url, window.location.href).href;
+      if (el.audio.src !== abs){
+        el.audio.src = url;
+        el.audio.load();
+      }
+
+      pushHistory(id);
+
+      try{
+        await el.audio.play();
+      }catch{}
+
+      morphToSquare();
+      updateTransport();
+      markRows();
+    }
+
+    function updateTransport(){
+      el.pNext.disabled = state.queue.length === 0;
+      el.pBack.disabled = !el.audio.src;
+      el.pPlay.disabled = (!el.audio.src && state.filtered.length === 0);
+    }
+
+    async function playQueuedNext(){
+      if (state.queue.length === 0) return;
+
+      // Pick the first queued item that is NOT the current one.
+      // This makes Next work while a queued track is playing.
+      const nextId = state.queue.find(id => id !== state.currentId) ?? null;
+      if (!nextId) return;
+
+      await playWork(nextId);
+      updateTransport();
+      markRows();
+    }
+
+    async function playPreviousWork(){
+      if (state.history.length < 2){
+        el.audio.currentTime = 0;
+        return;
+      }
+      const current = state.history[state.history.length - 1];
+      const prev = state.history[state.history.length - 2];
+
+      if (current === prev){
+        el.audio.currentTime = 0;
+        return;
+      }
+      state.history.pop();
+      await playWork(prev);
+    }
+
+    // Filters
+    el.filters.forEach(btn => {
+      btn.addEventListener("click", () => {
+        state.cat = btn.dataset.cat;
+        el.filters.forEach(x => x.classList.toggle("active", x === btn));
+        render();
+      });
+    });
+
+    // Player controls
+    el.pPlay.addEventListener("click", async () => {
+      if (!el.audio.src){
+        const first = state.filtered[0];
+        if (first) await playWork(first.id);
+        return;
+      }
+      if (el.audio.paused){
+        try{ await el.audio.play(); }catch{}
+        morphToSquare();
+      }else{
+        el.audio.pause();
+        morphToPlay();
+      }
+      markRows();
+    });
+
+    el.pBack.addEventListener("click", async () => {
+      if (!el.audio.src) return;
+      if (el.audio.currentTime > BACK_RESTART_SECONDS){
+        el.audio.currentTime = 0;
+        return;
+      }
+      await playPreviousWork();
+    });
+
+    el.pNext.addEventListener("click", playQueuedNext);
+
+    // Time / seek
+    el.audio.addEventListener("timeupdate", () => {
+      const cur = el.audio.currentTime || 0;
+      const dur = el.audio.duration || 0;
+      el.pTime.textContent = fmtTime(cur);
+      el.pDur.textContent = fmtTime(dur);
+      if (isFinite(dur) && dur > 0){
+        el.pSeek.value = String(Math.floor((cur / dur) * 1000));
+      }
+    });
+
+    el.pSeek.addEventListener("input", () => {
+      const dur = el.audio.duration;
+      if (!isFinite(dur) || dur <= 0) return;
+      const t = (parseInt(el.pSeek.value,10) / 1000) * dur;
+      el.audio.currentTime = t;
+    });
+
+    el.audio.addEventListener("ended", async () => {
+      const justEnded = state.currentId;
+
+      // If it was queued, remove it from the queue (we've listened through).
+      if (justEnded && state.queue.includes(justEnded)){
+        dequeue(justEnded);
+      }
+
+      morphToPlay();
+      updateTransport();
+      markRows();
+
+      // Autoplay only if there is another queued item remaining.
+      if (state.queue.length > 0){
+        await playQueuedNext();
+      }
+    });
+
+    el.audio.addEventListener("play", () => { morphToSquare(); markRows(); });
+    el.audio.addEventListener("pause", () => { morphToPlay(); markRows(); });
+
+    // Contact modal
+    el.btnContact.addEventListener("click", () => openOverlay(el.contactOverlay));
+    el.contactClose.addEventListener("click", () => closeOverlay(el.contactOverlay));
+    el.contactCancel.addEventListener("click", () => closeOverlay(el.contactOverlay));
+    el.contactOverlay.addEventListener("click", (e) => {
+      if (e.target === el.contactOverlay) closeOverlay(el.contactOverlay);
+    });
+
+    // Contact submit
+    el.contactForm.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      el.contactStatus.textContent = "";
+
+      const fd = new FormData(el.contactForm);
+
+      if ((fd.get("company") || "").toString().trim().length > 0) {
+        el.contactStatus.textContent = "Submission blocked.";
+        return;
+      }
+
+      try{
+        const r = await fetch(CONTACT_ENDPOINT, {
+          method: "POST",
+          body: fd,
+          headers: { "Accept": "application/json" }
+        });
+
+        if (r.ok){
+          el.contactStatus.textContent = "Sent.";
+          el.contactForm.reset();
+          setTimeout(() => closeOverlay(el.contactOverlay), 450);
+        }else{
+          el.contactStatus.textContent = "Send failed.";
+        }
+      }catch{
+        el.contactStatus.textContent = "Send failed.";
+      }
+    });
+
+    // Keyboard
+    document.addEventListener("keydown", (e) => {
+      const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
+      const typing = (tag === "input" || tag === "textarea");
+
+      if (e.key === "Escape"){
+        closeOverlay(el.contactOverlay);
+      }
+      if (!typing && e.key === " "){
+        e.preventDefault();
+        el.pPlay.click();
+      }
+    });
+
+    // Init
+    async function init(){
+      setNowPlaying(null);
+      const r = await fetch(WORKS_URL, { cache:"no-cache" });
+      const data = await r.json();
+      state.works = data.works || [];
+      render();
+      updateTransport();
+      morphToPlay();
+    }
+
+    init().catch(() => {
+      el.list.innerHTML = "<div style='padding:18px 0; color: rgba(255,255,255,0.7)'>Failed to load works.json</div>";
+    });
+  </script>
+</body>
+</html>
