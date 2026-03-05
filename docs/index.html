@@ -24,10 +24,8 @@
       --cyan:#14C5D9;
       --magenta:#910a67;
 
-      /* Use palette tokens directly where possible.
-         Accent is still useful when we want a “text-ready” variant (alpha/contrast tuned). */
-      --accentA: rgba(20,197,217,.92);   /* cyan */
-      --accentB: rgba(145,10,103,.92);   /* magenta */
+      --accentA: rgba(20,197,217,.92);
+      --accentB: rgba(145,10,103,.92);
 
       --line:rgba(255,255,255,.10);
       --line2:rgba(255,255,255,.14);
@@ -41,10 +39,10 @@
       --grad: linear-gradient(90deg, rgba(20,197,217,.70), rgba(145,10,103,.70));
 
       /* Player spacing knobs */
-      --player-gap: 8px;         /* symmetric spacing away from centred controls */
-      --seek-gap: 6px;            /* time ↔ seek line spacing */
-      --seek-left-min: 40px;      /* timeL min width */
-      --seek-right-min: 20px;     /* timeR min width */
+      --player-gap: 8px;
+      --seek-gap: 6px;
+      --seek-left-min: 40px;
+      --seek-right-min: 20px;
     }
 
     *{ box-sizing:border-box; }
@@ -57,7 +55,6 @@
       background: var(--bg0);
     }
 
-    /* Fixed background field (never “runs out”, never seams) */
     body::before{
       content:"";
       position: fixed;
@@ -76,7 +73,6 @@
       padding: 44px 18px 124px;
     }
 
-    /* Hero */
     .hero{
       text-align:center;
       padding: 6px 0 18px;
@@ -114,7 +110,6 @@
       color: var(--muted);
     }
 
-    /* Contact: button, but restrained */
     .contactline{
       margin-top: 18px;
       display:flex;
@@ -132,7 +127,7 @@
       letter-spacing: .10em;
       text-transform: uppercase;
       font-size: 11px;
-      font-weight: 650; /* slightly stronger */
+      font-weight: 650;
       transition: border-color .12s ease, background .12s ease, transform .12s ease, color .12s ease;
     }
     .contactbtn:hover{
@@ -143,7 +138,6 @@
     }
     .contactbtn:active{ transform: translateY(0); }
 
-    /* Filters */
     .filters{
       display:flex;
       justify-content:center;
@@ -298,7 +292,6 @@
       box-shadow: 0 0 0 4px rgba(145,10,103,.10);
     }
 
-    /* Player */
     .player{
       position:fixed;
       left:0; right:0; bottom:0;
@@ -310,7 +303,7 @@
     }
 
     .player-inner{
-      max-width: var(--catalog);   /* aligns with catalogue divider end */
+      max-width: var(--catalog);
       margin: 0 auto;
       height: 44px;
 
@@ -454,7 +447,6 @@
       border-radius: 2px;
     }
 
-    /* Contact modal (dechromed + simplified) */
     .overlay{
       position:fixed;
       inset:0;
@@ -497,19 +489,19 @@
       appearance:none;
       border:none;
       background: transparent;
-      color: rgba(255,255,255,.70);
       cursor:pointer;
       padding: 6px 8px;
       border-radius: 10px;
+
+      /* Make ESC match Contact/Send */
+      font-family: var(--h);
+      letter-spacing: .10em;
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 600;
+      color: rgba(255,255,255,.70);
     }
     .mclose:hover{ background: rgba(255,255,255,.05); color: rgba(255,255,255,.92); }
-
-    .status{
-      font-size: 11px;
-      color: rgba(255,255,255,.50);
-      line-height: 1.5;
-      margin: 0 0 14px 0;
-    }
 
     .form{
       display:flex;
@@ -523,7 +515,6 @@
       gap: 8px;
     }
 
-    /* Underlined fields, minimal chrome */
     .input,.textarea{
       width:100%;
       border: none;
@@ -559,7 +550,6 @@
       margin-top: 6px;
     }
 
-    /* Send uses same philosophy as contact button */
     .primary{
       appearance:none;
       border: 1px solid rgba(255,255,255,.14);
@@ -648,12 +638,8 @@
     <div class="modal" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
       <div class="mhead">
         <h2 class="mtitle" id="contactTitle">Contact</h2>
-        <button class="mclose" id="contactClose" aria-label="Close">Esc</button>
+        <button class="mclose" id="contactClose" aria-label="Close">ESC</button>
       </div>
-
-      <p class="status">
-        Messages are sent via a form endpoint; no email address is exposed on this page.
-      </p>
 
       <form class="form" id="contactForm">
         <div class="field">
@@ -675,7 +661,6 @@
 
         <div class="actionsRow">
           <button class="primary" type="submit">Send</button>
-          <button class="mclose" type="button" id="contactCancel">Cancel</button>
           <div class="statusInline" id="contactStatus"></div>
         </div>
       </form>
@@ -752,7 +737,7 @@
       works: [],
       filtered: [],
       currentId: null,
-      queue: [],     // ordered list of queued work ids
+      queue: [],
       history: []
     };
 
@@ -766,7 +751,6 @@
       btnContact: document.getElementById("btnContact"),
       contactOverlay: document.getElementById("contactOverlay"),
       contactClose: document.getElementById("contactClose"),
-      contactCancel: document.getElementById("contactCancel"),
       contactForm: document.getElementById("contactForm"),
       contactStatus: document.getElementById("contactStatus"),
 
@@ -833,15 +817,21 @@
       return null;
     }
 
+    function sortKey(w){
+      const n = Number(w?.sort);
+      return Number.isFinite(n) ? n : 9999;
+    }
+
     function applyFilter(){
       const xs = [...state.works].filter(w => {
+        if (w && w.enabled === false) return false;
         if (state.cat === "all") return true;
         return w.category === state.cat;
       });
 
       xs.sort((a,b) => {
-        const fa = !!a.featured, fb = !!b.featured;
-        if (fa !== fb) return fa ? -1 : 1;
+        const da = sortKey(a), db = sortKey(b);
+        if (da !== db) return da - db;
         return safeText(a.title).localeCompare(safeText(b.title));
       });
 
@@ -961,7 +951,6 @@
     }
 
     function queueWork(id){
-      // Toggle queue state; do not auto-consume on navigation.
       if (state.queue.includes(id)) dequeue(id);
       else state.queue.push(id);
 
@@ -1015,9 +1004,7 @@
 
       pushHistory(id);
 
-      try{
-        await el.audio.play();
-      }catch{}
+      try{ await el.audio.play(); }catch{}
 
       morphToSquare();
       updateTransport();
@@ -1032,12 +1019,8 @@
 
     async function playQueuedNext(){
       if (state.queue.length === 0) return;
-
-      // Pick the first queued item that is NOT the current one.
-      // This makes Next work while a queued track is playing.
       const nextId = state.queue.find(id => id !== state.currentId) ?? null;
       if (!nextId) return;
-
       await playWork(nextId);
       updateTransport();
       markRows();
@@ -1059,7 +1042,6 @@
       await playWork(prev);
     }
 
-    // Filters
     el.filters.forEach(btn => {
       btn.addEventListener("click", () => {
         state.cat = btn.dataset.cat;
@@ -1068,7 +1050,6 @@
       });
     });
 
-    // Player controls
     el.pPlay.addEventListener("click", async () => {
       if (!el.audio.src){
         const first = state.filtered[0];
@@ -1096,7 +1077,6 @@
 
     el.pNext.addEventListener("click", playQueuedNext);
 
-    // Time / seek
     el.audio.addEventListener("timeupdate", () => {
       const cur = el.audio.currentTime || 0;
       const dur = el.audio.duration || 0;
@@ -1117,7 +1097,6 @@
     el.audio.addEventListener("ended", async () => {
       const justEnded = state.currentId;
 
-      // If it was queued, remove it from the queue (we've listened through).
       if (justEnded && state.queue.includes(justEnded)){
         dequeue(justEnded);
       }
@@ -1126,7 +1105,6 @@
       updateTransport();
       markRows();
 
-      // Autoplay only if there is another queued item remaining.
       if (state.queue.length > 0){
         await playQueuedNext();
       }
@@ -1135,15 +1113,12 @@
     el.audio.addEventListener("play", () => { morphToSquare(); markRows(); });
     el.audio.addEventListener("pause", () => { morphToPlay(); markRows(); });
 
-    // Contact modal
     el.btnContact.addEventListener("click", () => openOverlay(el.contactOverlay));
     el.contactClose.addEventListener("click", () => closeOverlay(el.contactOverlay));
-    el.contactCancel.addEventListener("click", () => closeOverlay(el.contactOverlay));
     el.contactOverlay.addEventListener("click", (e) => {
       if (e.target === el.contactOverlay) closeOverlay(el.contactOverlay);
     });
 
-    // Contact submit
     el.contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
       el.contactStatus.textContent = "";
@@ -1174,7 +1149,6 @@
       }
     });
 
-    // Keyboard
     document.addEventListener("keydown", (e) => {
       const tag = (e.target && e.target.tagName) ? e.target.tagName.toLowerCase() : "";
       const typing = (tag === "input" || tag === "textarea");
@@ -1188,7 +1162,6 @@
       }
     });
 
-    // Init
     async function init(){
       setNowPlaying(null);
       const r = await fetch(WORKS_URL, { cache:"no-cache" });

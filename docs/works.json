@@ -1,9 +1,11 @@
 {
-  "schema_version": 1,
+  "schema_version": 2,
   "artist": "FREQEE",
   "works": [
     {
       "id": "w01",
+      "enabled": true,
+      "sort": 1,
       "title": "Dream Compendium No. 2",
       "year": 2006,
       "category": "compositions",
@@ -16,6 +18,8 @@
     },
     {
       "id": "w02",
+      "enabled": true,
+      "sort": 30,
       "title": "Heterophony with Birds",
       "year": 2018,
       "category": "compositions",
@@ -28,6 +32,8 @@
     },
     {
       "id": "w03",
+      "enabled": true,
+      "sort": 5,
       "title": "Boss Pattern (7+9)",
       "year": 2025,
       "category": "compositions",
@@ -40,6 +46,8 @@
     },
     {
       "id": "w04",
+      "enabled": false,
+      "sort": 160,
       "title": "Arpeggio Scaffold",
       "year": 2017,
       "category": "compositions",
@@ -52,6 +60,8 @@
     },
     {
       "id": "w05",
+      "enabled": true,
+      "sort": 190,
       "title": "Three-Voice Lament",
       "year": 2021,
       "category": "compositions",
@@ -64,6 +74,8 @@
     },
     {
       "id": "w06",
+      "enabled": true,
+      "sort": 170,
       "title": "Dirge in Three",
       "year": 2021,
       "category": "compositions",
@@ -76,6 +88,8 @@
     },
     {
       "id": "w07",
+      "enabled": true,
+      "sort": 180,
       "title": "Chant with Bells",
       "year": 2021,
       "category": "compositions",
@@ -88,6 +102,8 @@
     },
     {
       "id": "w08",
+      "enabled": true,
+      "sort": 20,
       "title": "Guillaume de Machaut — Dame, ne regardes pas",
       "year": 2022,
       "category": "interpretations",
@@ -100,6 +116,8 @@
     },
     {
       "id": "w09",
+      "enabled": true,
+      "sort": 13,
       "title": "Nocturne Reed",
       "year": 2025,
       "category": "systems",
@@ -112,6 +130,8 @@
     },
     {
       "id": "w10",
+      "enabled": true,
+      "sort": 14,
       "title": "VEDGALM",
       "year": 2025,
       "category": "systems",
@@ -124,6 +144,8 @@
     },
     {
       "id": "w11",
+      "enabled": true,
+      "sort": 90,
       "title": "Adam de la Halle — Tant con je vivrai",
       "year": 2017,
       "category": "interpretations",
@@ -136,6 +158,8 @@
     },
     {
       "id": "w12",
+      "enabled": true,
+      "sort": 80,
       "title": "Morales — Pie Jesu (from Missa pro defunctis)",
       "year": 2022,
       "category": "interpretations",
@@ -148,6 +172,8 @@
     },
     {
       "id": "w13",
+      "enabled": true,
+      "sort": 7,
       "title": "Faenza Codex — Constantia",
       "year": 2023,
       "category": "interpretations",
@@ -160,6 +186,8 @@
     },
     {
       "id": "w14",
+      "enabled": true,
+      "sort": 12,
       "title": "Schein — Sonata Padouana",
       "year": 2022,
       "category": "interpretations",
@@ -172,6 +200,8 @@
     },
     {
       "id": "w15",
+      "enabled": true,
+      "sort": 11,
       "title": "Shostakovich — Symphony No. 11 (excerpt)",
       "year": 2025,
       "category": "interpretations",
@@ -184,6 +214,8 @@
     },
     {
       "id": "w16",
+      "enabled": true,
+      "sort": 8,
       "title": "Philippus de Caserta — De ma dolour",
       "year": 2018,
       "category": "interpretations",
@@ -196,6 +228,8 @@
     },
     {
       "id": "w17",
+      "enabled": true,
+      "sort": 15,
       "title": "Hasapiko — Polyphonic Harmonisation",
       "year": 2019,
       "category": "interpretations",
@@ -208,6 +242,8 @@
     },
     {
       "id": "w18",
+      "enabled": true,
+      "sort": 30,
       "title": "Preston — Uppon La Mi Re",
       "year": 2020,
       "category": "interpretations",
