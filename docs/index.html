@@ -39,10 +39,15 @@
       --grad: linear-gradient(90deg, rgba(20,197,217,.70), rgba(145,10,103,.70));
 
       /* Player spacing knobs */
-      --player-gap: 8px;
+      --player-left-gap: 32px;   /* distance: title/tag block -> centre controls */
+      --player-right-gap: 14px;  /* distance: centre controls -> seek block */
+
+      /* Right-side (seek) sizing */
       --seek-gap: 6px;
       --seek-left-min: 40px;
       --seek-right-min: 20px;
+
+      --seek-max: 520px;         /* hard cap for the entire seek row width (timeL + bar + timeR) */
     }
 
     *{ box-sizing:border-box; }
@@ -70,7 +75,7 @@
     .wrap{
       max-width: var(--wrap);
       margin: 0 auto;
-      padding: 54px 18px 124px;
+      padding: 32px 18px 124px;
     }
 
     .hero{
@@ -104,7 +109,7 @@
     }
     .subcopy{
       margin: 0 auto;
-      max-width: 768px;
+      max-width: 540px;
       font-size: 13px;
       line-height: 1.7;
       color: var(--muted);
@@ -214,7 +219,7 @@
       letter-spacing: .10em;
       text-transform: uppercase;
       font-size: 10px;
-      color: rgba(20,197,217,.40); /* default: cyan-ish */
+      color: rgba(20,197,217,.40);
     }
     /* .row[data-cat="interpretations"] .wcat{ color: rgba(145,10,103,.52);} */
     /* .row[data-cat="systems"] .wcat{ color: rgba(20,197,217,.40); } */
@@ -391,7 +396,10 @@
       justify-self: end;
       text-align: right;
       min-width: 0;
-      padding-right: var(--player-gap);
+
+      /* was: padding-right: var(--player-gap); */
+      padding-right: var(--player-left-gap);
+
       opacity: 1;
       transition: opacity .12s ease;
     }
@@ -412,7 +420,7 @@
       letter-spacing: .10em;
       text-transform: uppercase;
       font-size: 10px;
-      color: rgba(255,255,255,.55);
+      color: rgba(20,197,217,.40);
       white-space: nowrap;
       overflow:hidden;
       text-overflow: ellipsis;
@@ -428,12 +436,15 @@
 
     .pRight{
       grid-column: 3;
-      justify-self: start;
+
+      /* CRITICAL: allow the right cell to actually take the full 1fr width */
+      justify-self: stretch;
+
       display:flex;
       align-items:center;
-      gap: 10px;
+
+      padding-left: var(--player-right-gap);
       min-width: 0;
-      padding-left: var(--player-gap);
     }
 
     .tbtn{
@@ -467,7 +478,11 @@
     }
 
     .seek{
+      /* CRITICAL: fill the stretched right cell */
+      flex: 1 1 auto;
       width: 100%;
+      max-width: var(--seek-max);
+
       display:flex;
       align-items:center;
       gap: var(--seek-gap);
@@ -965,13 +980,39 @@
         play.className = "iconbtn";
         play.dataset.action = "play";
         play.innerHTML = `<span data-label>Play</span>`;
-        play.addEventListener("click", (e) => { e.stopPropagation(); playWork(w.id); });
+        play.addEventListener("click", async (e) => {
+          e.stopPropagation();
+          e.currentTarget.blur(); // optional
+
+          // If this row is currently playing, clicking "Playing" should pause.
+          if (state.currentId === w.id && !el.audio.paused){
+            el.audio.pause();
+            morphToPlay();
+            markRows();
+            return;
+          }
+
+          // If this row is the current track but paused, resume.
+          if (state.currentId === w.id && el.audio.src){
+            try{ await el.audio.play(); }catch{}
+            morphToSquare();
+            markRows();
+            return;
+          }
+
+          // Otherwise, start this work.
+          await playWork(w.id);
+        });
 
         const queue = document.createElement("button");
         queue.className = "iconbtn";
         queue.dataset.action = "queue";
         queue.innerHTML = `<span data-label>Queue</span>`;
-        queue.addEventListener("click", (e) => { e.stopPropagation(); queueWork(w.id); });
+        queue.addEventListener("click", (e) => {
+          e.stopPropagation();
+          queueWork(w.id);
+          e.currentTarget.blur();        // <-- clears :focus-within so actions can hide
+        });
 
         actions.appendChild(dot);
         actions.appendChild(play);
