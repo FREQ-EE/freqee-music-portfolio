@@ -3,7 +3,7 @@
   "artist": "FREQEE",
   "works": [
     {
-      "id": "w01",
+      "id": "W01",
       "enabled": true,
       "sort": 1,
       "title": "Dream Compendium No. 2",
@@ -11,13 +11,10 @@
       "category": "compositions",
       "subcategory": "works",
       "description": "Antiphonal counterpoint for two saxophones and two harpsichords, built from tight hocketing and stereo call-and-response.",
-      "tags": ["counterpoint", "hocket", "antiphonal", "harpsichord", "saxophones"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["counterpoint", "hocket", "antiphonal", "harpsichord", "saxophones"]
     },
     {
-      "id": "w02",
+      "id": "W02",
       "enabled": true,
       "sort": 30,
       "title": "Heterophony with Birds",
@@ -25,13 +22,10 @@
       "category": "compositions",
       "subcategory": "works",
       "description": "Slow canonic and heterophonic writing for plucked strings, accompanied by ambient field birds and opening late into bright high-register synth lines.",
-      "tags": ["canon", "heterophony", "plucked", "field recording", "synth"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["canon", "heterophony", "plucked", "field recording", "synth"]
     },
     {
-      "id": "w03",
+      "id": "W03",
       "enabled": true,
       "sort": 5,
       "title": "Boss Pattern (7+9)",
@@ -39,13 +33,10 @@
       "category": "compositions",
       "subcategory": "sketches",
       "description": "High-energy synth sketch in 16/8 (7+9), driven by a continuous bass line and interlocking lead figures designed for combat pacing.",
-      "tags": ["odd metre", "16/8", "synth", "game", "rhythm"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["odd metre", "16/8", "synth", "game", "rhythm"]
     },
     {
-      "id": "w04",
+      "id": "W04",
       "enabled": false,
       "sort": 160,
       "title": "Arpeggio Scaffold",
@@ -53,13 +44,10 @@
       "category": "compositions",
       "subcategory": "sketches",
       "description": "Voice-led theme over deliberate organ arpeggiation, outlining harmonic scaffolding intended for later orchestration and contrapuntal expansion.",
-      "tags": ["theme", "organ", "arpeggiation", "voice", "cinematic"],
-      "featured": false,
-      "duration": null,
-      "image": null
+      "tags": ["theme", "organ", "arpeggiation", "voice", "cinematic"]
     },
     {
-      "id": "w05",
+      "id": "W05",
       "enabled": true,
       "sort": 190,
       "title": "Three-Voice Lament",
@@ -67,13 +55,10 @@
       "category": "compositions",
       "subcategory": "sketches",
       "description": "Short three-voice plucked sketch centred on lament contour and clear contrapuntal spacing.",
-      "tags": ["trio", "plucked", "counterpoint", "lament"],
-      "featured": false,
-      "duration": null,
-      "image": null
+      "tags": ["trio", "plucked", "counterpoint", "lament"]
     },
     {
-      "id": "w06",
+      "id": "W06",
       "enabled": true,
       "sort": 170,
       "title": "Dirge in Three",
@@ -81,13 +66,10 @@
       "category": "compositions",
       "subcategory": "sketches",
       "description": "Slow processional polyphony with sparse drum pulse and layered voices forming the central texture.",
-      "tags": ["dirge", "vocal", "polyphony", "processional"],
-      "featured": false,
-      "duration": null,
-      "image": null
+      "tags": ["dirge", "vocal", "polyphony", "processional"]
     },
     {
-      "id": "w07",
+      "id": "W07",
       "enabled": true,
       "sort": 180,
       "title": "Chant with Bells",
@@ -95,13 +77,10 @@
       "category": "compositions",
       "subcategory": "sketches",
       "description": "Chant-like vocal texture with bell tones outlining the melodic skeleton and echoing below with resonant decay.",
-      "tags": ["chant", "bells", "ritual", "vocal"],
-      "featured": false,
-      "duration": null,
-      "image": null
+      "tags": ["chant", "bells", "ritual", "vocal"]
     },
     {
-      "id": "w08",
+      "id": "W08",
       "enabled": true,
       "sort": 20,
       "title": "Guillaume de Machaut — Dame, ne regardes pas",
@@ -109,27 +88,21 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Two-voice Ars Nova excerpt performed as layered, untexted vocals in a deep register with spacious resonance.",
-      "tags": ["Ars Nova", "Machaut", "two-voice", "vocal", "medieval"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["Ars Nova", "Machaut", "two-voice", "vocal", "medieval"]
     },
     {
-      "id": "w09",
+      "id": "W09",
       "enabled": true,
       "sort": 13,
       "title": "Nocturne Reed",
       "year": 2025,
       "category": "systems",
       "subcategory": "sound_design",
-      "description": "Monophonic lead timbre inspired by the colour of French Romantic reed stops, shaped as a synth voice with rapid pitch transitions and expressive articulation.",
-      "tags": ["sound design", "lead", "synth", "French Romantic", "reed", "Serum"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "description": "Monophonic lead inspired by French Romantic organ reeds, with key-tracked wavetable colour and rapid portamento for expressive articulation.",
+      "tags": ["sound design", "lead", "synth", "French Romantic", "reed", "Serum"]
     },
     {
-      "id": "w10",
+      "id": "W10",
       "enabled": true,
       "sort": 14,
       "title": "VEDGALM",
@@ -137,13 +110,10 @@
       "category": "systems",
       "subcategory": "sound_design",
       "description": "Growling bass timbre derived from heavy-engine motion, presented as a compact sound design study.",
-      "tags": ["sound design", "bass", "engine", "growl", "Serum"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["sound design", "bass", "engine", "growl", "Serum"]
     },
     {
-      "id": "w11",
+      "id": "W11",
       "enabled": true,
       "sort": 90,
       "title": "Adam de la Halle — Tant con je vivrai",
@@ -151,13 +121,10 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Polyphonic excerpt sung in a low register with deliberate electronic processing applied as a stylistic layer.",
-      "tags": ["medieval", "polyphony", "voice", "Old French"],
-      "featured": false,
-      "duration": null,
-      "image": null
+      "tags": ["medieval", "polyphony", "voice", "Old French"]
     },
     {
-      "id": "w12",
+      "id": "W12",
       "enabled": true,
       "sort": 80,
       "title": "Morales — Pie Jesu (from Missa pro defunctis)",
@@ -165,13 +132,10 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Multitracked solo voices forming a compact Renaissance choral texture centred on blend and cadential weight.",
-      "tags": ["Renaissance", "choral", "polyphony", "Morales"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["Renaissance", "choral", "polyphony", "Morales"]
     },
     {
-      "id": "w13",
+      "id": "W13",
       "enabled": true,
       "sort": 7,
       "title": "Faenza Codex — Constantia",
@@ -179,13 +143,10 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Two-part instrumental piece from the Faenza Codex performed on kantele, highlighting delicate clarity and line.",
-      "tags": ["Faenza Codex", "15th century", "kantele", "early music"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["Faenza Codex", "15th century", "kantele", "early music"]
     },
     {
-      "id": "w14",
+      "id": "W14",
       "enabled": true,
       "sort": 12,
       "title": "Schein — Sonata Padouana",
@@ -193,13 +154,10 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Excerpt from Johann Hermann Schein’s Banchetto musicale, rendered vocally with subtle pulse to outline the slow dance form.",
-      "tags": ["Schein", "Padouana", "early baroque", "consort"],
-      "featured": false,
-      "duration": null,
-      "image": null
+      "tags": ["Schein", "Padouana", "early baroque", "consort"]
     },
     {
-      "id": "w15",
+      "id": "W15",
       "enabled": true,
       "sort": 11,
       "title": "Shostakovich — Symphony No. 11 (excerpt)",
@@ -207,13 +165,10 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Orchestral reconstruction of a climactic passage from Symphony No. 11 using modern sample libraries.",
-      "tags": ["Shostakovich", "orchestral", "sample libraries"],
-      "featured": false,
-      "duration": null,
-      "image": null
+      "tags": ["Shostakovich", "orchestral", "sample libraries"]
     },
     {
-      "id": "w16",
+      "id": "W16",
       "enabled": true,
       "sort": 8,
       "title": "Philippus de Caserta — De ma dolour",
@@ -221,13 +176,10 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Soft multitracked vocal rendering of an Ars Subtilior chanson, focused on blend and fragile contour.",
-      "tags": ["Ars Subtilior", "Caserta", "vocal", "medieval"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["Ars Subtilior", "Caserta", "vocal", "medieval"]
     },
     {
-      "id": "w17",
+      "id": "W17",
       "enabled": true,
       "sort": 15,
       "title": "Hasapiko — Polyphonic Harmonisation",
@@ -235,13 +187,10 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Traditional Greek melody reharmonised in contrapuntal style, moving from source to extracted tune to a complete polyphonic realisation.",
-      "tags": ["Greek", "harmonisation", "counterpoint", "arrangement"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["Greek", "harmonisation", "counterpoint", "arrangement"]
     },
     {
-      "id": "w18",
+      "id": "W18",
       "enabled": true,
       "sort": 30,
       "title": "Preston — Uppon La Mi Re",
@@ -249,10 +198,7 @@
       "category": "interpretations",
       "subcategory": null,
       "description": "Keyboard performance built on a repeating hexachord ground, with contrapuntal elaboration over a steady bass pattern.",
-      "tags": ["virginalist", "organ", "Preston", "renaissance", "ground"],
-      "featured": true,
-      "duration": null,
-      "image": null
+      "tags": ["virginalist", "organ", "Preston", "renaissance", "ground"]
     }
   ]
 }

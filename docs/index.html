@@ -277,19 +277,86 @@
     }
 
     .stateDot{
+      position: relative;
       width: 8px;
       height: 8px;
       border-radius: 999px;
       background: rgba(255,255,255,.22);
       flex: 0 0 auto;
     }
-    .row.playing .stateDot{
-      background: rgba(20,197,217,.70);
-      box-shadow: 0 0 0 4px rgba(20,197,217,.10);
+
+    /* glowing halo element */
+    .stateDot::after{
+      content: "";
+      position: absolute;
+
+      /* base halo size (used by PLAYING) */
+      inset: -10px;
+
+      border-radius: 999px;
+      opacity: 0;
+      pointer-events: none;
     }
+
+    /* PLAYING */
+    .row.playing .stateDot{
+      background: rgba(20,197,217,.9);
+    }
+
+    .row.playing .stateDot::after{
+      opacity: 1;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(20,197,217,.35) 0%,
+          rgba(20,197,217,.22) 35%,
+          rgba(20,197,217,.10) 55%,
+          rgba(20,197,217,.04) 70%,
+          rgba(20,197,217,0) 100%
+        );
+
+      animation: playingHalo 2.5s ease-in-out infinite alternate;
+    }
+
+    /* QUEUED */
     .row.queued:not(.playing) .stateDot{
-      background: rgba(145,10,103,.70);
-      box-shadow: 0 0 0 4px rgba(145,10,103,.10);
+      background: rgba(145,10,103,.75);
+    }
+
+    .row.queued:not(.playing) .stateDot::after{
+      opacity: 1;
+
+      /* queued halo is smaller than playing */
+      inset: -7px;
+
+      background:
+        radial-gradient(
+          circle,
+          rgba(145,10,103,.26) 0%,
+          rgba(145,10,103,.16) 35%,
+          rgba(145,10,103,.08) 55%,
+          rgba(145,10,103,.03) 70%,
+          rgba(145,10,103,0) 100%
+        );
+    }
+
+    /* smooth breathing animation */
+    @keyframes playingHalo{
+      from{
+        transform: scale(0.65);
+        opacity: .7;
+      }
+      to{
+        transform: scale(0.9);
+        opacity: .7;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .row.playing .stateDot::after{
+        animation: none;
+      }
     }
 
     .player{
@@ -790,33 +857,6 @@
       return `${m}:${String(s).padStart(2,"0")}`;
     }
 
-    function padAudioId(workId){
-      const n = parseInt(String(workId).replace(/^w/i,""), 10);
-      if (!Number.isFinite(n)) return null;
-      return "w" + String(n).padStart(4,"0");
-    }
-
-    async function urlExists(url){
-      try{
-        const r = await fetch(url, { method:"HEAD", cache:"no-cache" });
-        return r.ok;
-      }catch{ return false; }
-    }
-
-    async function resolveAudioUrl(work){
-      if (work.published_audio){
-        return work.published_audio.startsWith("assets/") ? "./" + work.published_audio : work.published_audio;
-      }
-      const baseId = padAudioId(work.id);
-      if (!baseId) return null;
-
-      for (const ext of AUDIO_EXT_ORDER){
-        const url = `${AUDIO_BASE}/${baseId}.${ext}`;
-        if (await urlExists(url)) return url;
-      }
-      return null;
-    }
-
     function sortKey(w){
       const n = Number(w?.sort);
       return Number.isFinite(n) ? n : 9999;
@@ -859,7 +899,8 @@
         }
         const pb = r.querySelector('[data-action="play"]');
         if (pb){
-          pb.querySelector('[data-label]').textContent = (state.currentId === id && !el.audio.paused) ? "Playing" : "Play";
+          pb.querySelector('[data-label]').textContent =
+            (state.currentId === id && !el.audio.paused) ? "Playing" : "Play";
         }
       }
     }
@@ -980,6 +1021,73 @@
       el.pSub.textContent = catLabel(work.category);
     }
 
+    // ---------------------------
+    // Audio resolution
+    // ---------------------------
+    async function urlExists(url){
+      try{
+        const r = await fetch(url, { method:"HEAD", cache:"no-cache" });
+        return r.ok;
+      }catch{ return false; }
+    }
+
+    function normaliseAudioPath(p){
+      const s = String(p || "").trim();
+      if (!s) return null;
+
+      // Accept absolute URLs, or repo-relative paths like "assets/audio/W01.mp3"
+      if (/^https?:\/\//i.test(s)) return s;
+      if (s.startsWith("./")) return s;
+      if (s.startsWith("/")) return "." + s;
+      return "./" + s;
+    }
+
+    function idToNumber(id){
+      const m = String(id || "").match(/(\d+)/);
+      if (!m) return null;
+      const n = parseInt(m[1], 10);
+      return Number.isFinite(n) ? n : null;
+    }
+
+    function candidateBaseNamesFromId(id){
+      const n = idToNumber(id);
+      if (!Number.isFinite(n)) return [];
+      const two = String(n).padStart(2, "0");
+      const four = String(n).padStart(4, "0");
+
+      // Prefer your new desired scheme, but keep backward compatibility.
+      return [
+        `W${two}`, `w${two}`,
+        `W${four}`, `w${four}`,
+        `w${four}` // legacy already covered; kept explicit for clarity
+      ];
+    }
+
+    async function resolveAudioUrl(work){
+      // Preferred: explicit path in works.json
+      const explicit = normaliseAudioPath(work?.audio);
+      if (explicit) return explicit;
+
+      // Existing support: published_audio (legacy)
+      if (work?.published_audio){
+        const p = normaliseAudioPath(work.published_audio);
+        if (p) return p;
+      }
+
+      // Fallback: probe likely filenames (noisy but backwards compatible)
+      const bases = candidateBaseNamesFromId(work?.id);
+      for (const base of bases){
+        for (const ext of AUDIO_EXT_ORDER){
+          const url = `${AUDIO_BASE}/${base}.${ext}`;
+          if (await urlExists(url)) return url;
+        }
+      }
+      return null;
+    }
+
+    // ---------------------------
+    // Player actions
+    // ---------------------------
     async function playWork(id){
       const w = state.works.find(x => x.id === id);
       if (!w) return;
@@ -1042,6 +1150,9 @@
       await playWork(prev);
     }
 
+    // ---------------------------
+    // Events
+    // ---------------------------
     el.filters.forEach(btn => {
       btn.addEventListener("click", () => {
         state.cat = btn.dataset.cat;
@@ -1105,6 +1216,7 @@
       updateTransport();
       markRows();
 
+      // Queued-only autoplay
       if (state.queue.length > 0){
         await playQueuedNext();
       }
@@ -1162,6 +1274,9 @@
       }
     });
 
+    // ---------------------------
+    // Init
+    // ---------------------------
     async function init(){
       setNowPlaying(null);
       const r = await fetch(WORKS_URL, { cache:"no-cache" });
