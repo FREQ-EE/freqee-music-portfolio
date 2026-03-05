@@ -21,7 +21,7 @@
       "year": 2018,
       "category": "compositions",
       "subcategory": "works",
-      "description": "Slow canonic and heterophonic writing for plucked strings, accompanied by ambient field birds and opening late into bright high-register synth lines.",
+      "description": "Slow canon/heterophony for plucked strings with bird field-recording layer; expands into high-register synth lines late in the form.",
       "tags": ["canon", "heterophony", "plucked", "field recording", "synth"]
     },
     {
@@ -43,7 +43,7 @@
       "year": 2017,
       "category": "compositions",
       "subcategory": "sketches",
-      "description": "Voice-led theme over deliberate organ arpeggiation, outlining harmonic scaffolding intended for later orchestration and contrapuntal expansion.",
+      "description": "Voice-led theme over measured organ arpeggiation; a harmonic frame intended for later orchestration and contrapuntal extension.",
       "tags": ["theme", "organ", "arpeggiation", "voice", "cinematic"]
     },
     {
@@ -65,7 +65,7 @@
       "year": 2021,
       "category": "compositions",
       "subcategory": "sketches",
-      "description": "Slow processional polyphony with sparse drum pulse and layered voices forming the central texture.",
+      "description": "Slow processional polyphony with sparse drum pulse; layered voices carry the texture.",
       "tags": ["dirge", "vocal", "polyphony", "processional"]
     },
     {
@@ -87,7 +87,7 @@
       "year": 2022,
       "category": "interpretations",
       "subcategory": null,
-      "description": "Two-voice Ars Nova excerpt performed as layered, untexted vocals in a deep register with spacious resonance.",
+      "description": "Two-voice Ars Nova excerpt, sung as layered untexted vocals in a low register; sustained resonance emphasises weight and intervallic friction.",
       "tags": ["Ars Nova", "Machaut", "two-voice", "vocal", "medieval"]
     },
     {
@@ -98,7 +98,7 @@
       "year": 2025,
       "category": "systems",
       "subcategory": "sound_design",
-      "description": "Monophonic lead inspired by French Romantic organ reeds, with key-tracked wavetable colour and rapid portamento for expressive articulation.",
+      "description": "Monophonic lead inspired by French Romantic organ reeds, with key-tracked wavetable colour and fast portamento for expressive articulation.",
       "tags": ["sound design", "lead", "synth", "French Romantic", "reed", "Serum"]
     },
     {
@@ -109,7 +109,7 @@
       "year": 2025,
       "category": "systems",
       "subcategory": "sound_design",
-      "description": "Growling bass timbre derived from heavy-engine motion, presented as a compact sound design study.",
+      "description": "Growling bass derived from a monster-truck engine recording, shaped into a wavetable and driven with saturation; a compact sound design study.",
       "tags": ["sound design", "bass", "engine", "growl", "Serum"]
     },
     {
@@ -131,7 +131,7 @@
       "year": 2022,
       "category": "interpretations",
       "subcategory": null,
-      "description": "Multitracked solo voices forming a compact Renaissance choral texture centred on blend and cadential weight.",
+      "description": "Multitracked solo voices forming a small Renaissance choral texture; tuned for blend and cadential weight.",
       "tags": ["Renaissance", "choral", "polyphony", "Morales"]
     },
     {
@@ -142,7 +142,7 @@
       "year": 2023,
       "category": "interpretations",
       "subcategory": null,
-      "description": "Two-part instrumental piece from the Faenza Codex performed on kantele, highlighting delicate clarity and line.",
+      "description": "Two-part Faenza Codex piece performed on kantele, with clean articulation and clear line separation.",
       "tags": ["Faenza Codex", "15th century", "kantele", "early music"]
     },
     {
@@ -153,7 +153,7 @@
       "year": 2022,
       "category": "interpretations",
       "subcategory": null,
-      "description": "Excerpt from Johann Hermann Schein’s Banchetto musicale, rendered vocally with subtle pulse to outline the slow dance form.",
+      "description": "Excerpt from Schein’s Banchetto musicale rendered vocally; a restrained tactus outlines the slow dance form.",
       "tags": ["Schein", "Padouana", "early baroque", "consort"]
     },
     {
@@ -164,7 +164,7 @@
       "year": 2025,
       "category": "interpretations",
       "subcategory": null,
-      "description": "Orchestral reconstruction of a climactic passage from Symphony No. 11 using modern sample libraries.",
+      "description": "Orchestral mock-up of a climactic passage from Symphony No. 11, built using modern sample libraries with articulated dynamics and percussion weight.",
       "tags": ["Shostakovich", "orchestral", "sample libraries"]
     },
     {
@@ -186,7 +186,7 @@
       "year": 2019,
       "category": "interpretations",
       "subcategory": null,
-      "description": "Traditional Greek melody reharmonised in contrapuntal style, moving from source to extracted tune to a complete polyphonic realisation.",
+      "description": "Traditional Greek melody reharmonised in a late-medieval contrapuntal style, moving from source to extracted tune to full polyphonic realisation.",
       "tags": ["Greek", "harmonisation", "counterpoint", "arrangement"]
     },
     {
@@ -197,7 +197,7 @@
       "year": 2020,
       "category": "interpretations",
       "subcategory": null,
-      "description": "Keyboard performance built on a repeating hexachord ground, with contrapuntal elaboration over a steady bass pattern.",
+      "description": "Keyboard performance built on a repeating hexachord ground, with contrapuntal elaboration above the bass.",
       "tags": ["virginalist", "organ", "Preston", "renaissance", "ground"]
     }
   ]
