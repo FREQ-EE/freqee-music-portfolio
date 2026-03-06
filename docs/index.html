@@ -691,6 +691,24 @@
       100% { opacity: 1;   transform: translateY(0); }
     }
 
+    /* ---------------------------
+      Film grain overlay
+    --------------------------- */
+    #filmGrain{
+      position: fixed;
+      inset: 0;
+      z-index: 9999;
+      pointer-events: none;
+      overflow: hidden;
+      opacity: 0.04;
+      mix-blend-mode: soft-light;
+      background-repeat: repeat;
+      background-position: 0 0;
+      image-rendering: crisp-edges;
+      image-rendering: pixelated;
+      will-change: background-position;
+    }
+
     @media (max-width: 860px){
       .player-inner{
         height: 74px;
@@ -843,6 +861,154 @@
   </div>
 
   <audio id="audio"></audio>
+
+  <script>
+    (() => {
+      const FILM_GRAIN = {
+        opacity: 0.06,
+        blendMode: "soft-light",
+        zIndex: 9999,
+
+        bankSize: 42,
+        tileSize: 128,
+        sourceTileSize: 128,
+        swapRate: 40,
+
+        intensity: 200,
+        clipping: 120,
+        bias: 0,
+        localBrightness: 1.26,
+        localContrast: 1.23,
+        rgbSpeckle: true,
+        randomOrder: false
+      };
+
+      function clampByte(v){
+        return Math.max(0, Math.min(255, v));
+      }
+
+      function makeNoiseTile(size, intensity, clipping, bias, brightness, contrast, rgb){
+        const tile = document.createElement("canvas");
+        tile.width = size;
+        tile.height = size;
+        const ctx = tile.getContext("2d", { willReadFrequently: true });
+        if (!ctx) return null;
+
+        const imageData = ctx.createImageData(size, size);
+        const data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4){
+          const sample = (Math.random() * 2 - 1) + bias;
+          let base = ((sample + 1) * 0.5) * intensity;
+          base = base < clipping ? 0 : base;
+
+          const shaped = clampByte((((base - 128) * contrast) + 128) * brightness);
+
+          if (rgb){
+            data[i] = clampByte(shaped + (Math.random() - 0.5) * 24);
+            data[i + 1] = clampByte(shaped + (Math.random() - 0.5) * 24);
+            data[i + 2] = clampByte(shaped + (Math.random() - 0.5) * 24);
+          }else{
+            data[i] = shaped;
+            data[i + 1] = shaped;
+            data[i + 2] = shaped;
+          }
+          data[i + 3] = 255;
+        }
+
+        ctx.putImageData(imageData, 0, 0);
+        return tile;
+      }
+
+      function buildGrainAtlas(config){
+        const cols = Math.ceil(Math.sqrt(config.bankSize));
+        const rows = Math.ceil(config.bankSize / cols);
+        const frameCount = cols * rows;
+
+        const atlas = document.createElement("canvas");
+        atlas.width = cols * config.sourceTileSize;
+        atlas.height = rows * config.sourceTileSize;
+
+        const ctx = atlas.getContext("2d");
+        if (!ctx) return null;
+        ctx.imageSmoothingEnabled = false;
+
+        const logicalFrames = [];
+        for (let i = 0; i < config.bankSize; i += 1){
+          const frame = makeNoiseTile(
+            config.sourceTileSize,
+            config.intensity,
+            config.clipping,
+            config.bias,
+            config.localBrightness,
+            config.localContrast,
+            config.rgbSpeckle
+          );
+          if (frame) logicalFrames.push(frame);
+        }
+
+        if (!logicalFrames.length) return null;
+
+        for (let i = 0; i < frameCount; i += 1){
+          const frame = logicalFrames[i % logicalFrames.length];
+          const x = (i % cols) * config.sourceTileSize;
+          const y = Math.floor(i / cols) * config.sourceTileSize;
+          ctx.drawImage(frame, x, y);
+        }
+
+        return {
+          url: atlas.toDataURL("image/png"),
+          cols,
+          rows,
+          frameCount
+        };
+      }
+
+      function initFilmGrain(){
+        const grain = document.getElementById("filmGrain");
+        if (!grain) return;
+
+        const cfg = FILM_GRAIN;
+        const atlas = buildGrainAtlas(cfg);
+        if (!atlas) return;
+
+        grain.style.opacity = String(cfg.opacity);
+        grain.style.mixBlendMode = cfg.blendMode;
+        grain.style.zIndex = String(cfg.zIndex);
+        grain.style.backgroundImage = `url(${atlas.url})`;
+        grain.style.backgroundRepeat = "repeat";
+        grain.style.backgroundSize = `${atlas.cols * cfg.tileSize}px ${atlas.rows * cfg.tileSize}px`;
+
+        let index = 0;
+        const intervalMs = cfg.swapRate > 0 ? (1000 / cfg.swapRate) : 0;
+
+        function applyFrame(i){
+          const col = i % atlas.cols;
+          const row = Math.floor(i / atlas.cols);
+          grain.style.backgroundPosition = `${-col * cfg.tileSize}px ${-row * cfg.tileSize}px`;
+        }
+
+        applyFrame(index);
+
+        if (intervalMs > 0){
+          window.setInterval(() => {
+            if (cfg.randomOrder){
+              index = Math.floor(Math.random() * atlas.frameCount);
+            }else{
+              index = (index + 1) % atlas.frameCount;
+            }
+            applyFrame(index);
+          }, intervalMs);
+        }
+      }
+
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", initFilmGrain, { once: true });
+      } else {
+        initFilmGrain();
+      }
+    })();
+  </script>
 
   <script>
     // ---------------------------
@@ -1436,5 +1602,7 @@
       el.list.innerHTML = "<div style='padding:18px 0; color: rgba(255,255,255,0.7)'>Failed to load works.json</div>";
     });
   </script>
+
+  <div id="filmGrain" aria-hidden="true"></div>
 </body>
 </html>
