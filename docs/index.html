@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en-GB">
 <head>
+<script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 <script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "7bbd652ad61b4191907c062d72d36fb0"}'></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -665,6 +666,29 @@
       font-size: 11px;
       color: rgba(255,255,255,.55);
       min-height: 16px;
+      transition: color .18s ease, opacity .18s ease, text-shadow .28s ease, transform .28s ease;
+    }
+
+    .statusInline.isSending{
+      color: rgba(255,255,255,.70);
+    }
+
+    .statusInline.isSuccess{
+      color: rgba(20,197,217,.92);
+      text-shadow:
+        0 0 8px rgba(20,197,217,.28),
+        0 0 18px rgba(20,197,217,.14);
+      animation: statusPulse .7s ease;
+    }
+
+    .statusInline.isError{
+      color: rgba(255,120,120,.88);
+    }
+
+    @keyframes statusPulse{
+      0%   { opacity: .72; transform: translateY(1px); }
+      35%  { opacity: 1;   transform: translateY(0); }
+      100% { opacity: 1;   transform: translateY(0); }
     }
 
     @media (max-width: 860px){
@@ -728,8 +752,12 @@
         <h2 class="mtitle" id="contactTitle">Contact</h2>
         <button class="mclose" id="contactClose" aria-label="Close">ESC</button>
       </div>
-
-      <form class="form" id="contactForm">
+      <form
+        class="form"
+        id="contactForm"
+        action="https://formspree.io/f/mpqyaaar"
+        method="POST"
+      >
         <div class="field">
           <input class="input" name="name" autocomplete="name" placeholder="Name" required />
         </div>
@@ -744,12 +772,23 @@
 
         <div class="honeypot">
           <label>Do not fill this field</label>
-          <input name="company" />
+          <input name="company" tabindex="-1" autocomplete="off" />
+        </div>
+
+        <div class="field">
+          <div
+            class="cf-turnstile"
+            id="contactTurnstile"
+            data-sitekey="0x4AAAAAACnadMMfvGm87IsH"
+            data-theme="dark"
+            data-size="flexible"
+            data-appearance="interaction-only"
+          ></div>
         </div>
 
         <div class="actionsRow">
-          <button class="primary" type="submit">Send</button>
-          <div class="statusInline" id="contactStatus"></div>
+          <button class="primary" id="contactSubmit" type="submit">Send</button>
+          <div class="statusInline" id="contactStatus" aria-live="polite" role="status"></div>
         </div>
       </form>
     </div>
@@ -814,6 +853,7 @@
     const AUDIO_EXT_ORDER = ["mp3", "m4a", "wav"];
 
     const CONTACT_ENDPOINT = "https://formspree.io/f/mpqyaaar";
+    const CONTACT_SUCCESS_CLOSE_DELAY_MS = 950;
 
     const BACK_RESTART_SECONDS = 3.0;
 
@@ -841,6 +881,7 @@
       contactClose: document.getElementById("contactClose"),
       contactForm: document.getElementById("contactForm"),
       contactStatus: document.getElementById("contactStatus"),
+      contactSubmit: document.getElementById("contactSubmit"),
 
       audio: document.getElementById("audio"),
 
@@ -1037,6 +1078,21 @@
     function closeOverlay(overlayEl){
       overlayEl.classList.remove("open");
       overlayEl.setAttribute("aria-hidden","true");
+    }
+
+    function setContactStatus(message, stateClass = ""){
+      el.contactStatus.textContent = message;
+      el.contactStatus.classList.remove("isSending", "isSuccess", "isError");
+      if (stateClass) el.contactStatus.classList.add(stateClass);
+    }
+
+    function resetContactTurnstile(){
+      if (!window.turnstile) return;
+      const widgetEl = document.getElementById("contactTurnstile");
+      if (!widgetEl) return;
+      try{
+        window.turnstile.reset(widgetEl);
+      }catch{}
     }
 
     function queueWork(id){
@@ -1273,7 +1329,10 @@
     el.audio.addEventListener("play", () => { morphToSquare(); markRows(); });
     el.audio.addEventListener("pause", () => { morphToPlay(); markRows(); });
 
-    el.btnContact.addEventListener("click", () => openOverlay(el.contactOverlay));
+    el.btnContact.addEventListener("click", () => {
+      openOverlay(el.contactOverlay);
+      setTimeout(resetContactTurnstile, 0);
+    });
     el.contactClose.addEventListener("click", () => closeOverlay(el.contactOverlay));
     el.contactOverlay.addEventListener("click", (e) => {
       if (e.target === el.contactOverlay) closeOverlay(el.contactOverlay);
@@ -1281,20 +1340,30 @@
 
     el.contactForm.addEventListener("submit", async (e) => {
       e.preventDefault();
-      el.contactStatus.textContent = "";
 
-      const fd = new FormData(el.contactForm);
+      el.contactSubmit.disabled = true;
+      el.contactSubmit.textContent = "Sending…";
+      setContactStatus("Sending…", "isSending");
 
-      if ((fd.get("company") || "").toString().trim().length > 0) {
-        el.contactStatus.textContent = "Submission blocked.";
-        return;
-      }
+      try{
+        const fd = new FormData(el.contactForm);
 
-      const submitBtn = el.contactForm.querySelector('button[type="submit"]');
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Sending…";
+        if ((fd.get("company") || "").toString().trim().length > 0){
+          setContactStatus("Submission blocked.", "isError");
+          el.contactSubmit.disabled = false;
+          el.contactSubmit.textContent = "Send";
+          return;
+        }
 
-      try {
+        const turnstileToken = (fd.get("cf-turnstile-response") || "").toString().trim();
+        if (!turnstileToken){
+          setContactStatus("Verification required. Please wait a moment and try again.", "isError");
+          el.contactSubmit.disabled = false;
+          el.contactSubmit.textContent = "Send";
+          resetContactTurnstile();
+          return;
+        }
+
         const r = await fetch(CONTACT_ENDPOINT, {
           method: "POST",
           body: fd,
@@ -1303,24 +1372,37 @@
 
         const data = await r.json().catch(() => null);
 
-        if (r.ok) {
-          el.contactStatus.textContent = "Sent.";
-          el.contactForm.reset();
-          setTimeout(() => closeOverlay(el.contactOverlay), 450);
+        if (!r.ok){
+          if (data && Array.isArray(data.errors) && data.errors.length){
+            setContactStatus(data.errors.map(x => x.message).join(" "), "isError");
+          }else{
+            setContactStatus(`Send failed (${r.status}).`, "isError");
+          }
+
+          el.contactSubmit.disabled = false;
+          el.contactSubmit.textContent = "Send";
+          resetContactTurnstile();
           return;
         }
 
-        if (data && Array.isArray(data.errors) && data.errors.length) {
-          el.contactStatus.textContent = data.errors.map(x => x.message).join(" ");
-        } else {
-          el.contactStatus.textContent = `Send failed (${r.status}).`;
-        }
-      } catch (err) {
-        el.contactStatus.textContent = "Network error. Please try again.";
+        el.contactSubmit.textContent = "Sent";
+        setContactStatus("Sent", "isSuccess");
+        el.contactForm.reset();
+
+        setTimeout(() => {
+          closeOverlay(el.contactOverlay);
+          el.contactSubmit.disabled = false;
+          el.contactSubmit.textContent = "Send";
+          setContactStatus("");
+          resetContactTurnstile();
+        }, CONTACT_SUCCESS_CLOSE_DELAY_MS);
+
+      }catch(err){
         console.error("Contact form error:", err);
-      } finally {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Send";
+        setContactStatus("Send failed.", "isError");
+        el.contactSubmit.disabled = false;
+        el.contactSubmit.textContent = "Send";
+        resetContactTurnstile();
       }
     });
 
